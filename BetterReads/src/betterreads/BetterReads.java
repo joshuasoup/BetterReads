@@ -14,7 +14,8 @@ public class BetterReads {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        GoogleBooksAPI api = new GoogleBooksAPI();
+
     }
-    
+
 }
