@@ -4,6 +4,8 @@
  */
 package betterreads;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author menot
@@ -14,7 +16,6 @@ public class BetterReads {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        GoogleBooksAPI api = new GoogleBooksAPI();
 
     }
 
