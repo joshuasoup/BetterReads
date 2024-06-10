@@ -4,6 +4,8 @@
  */
 package betterreads;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author menot
@@ -15,6 +17,17 @@ public class BetterReads {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        UserReviews main = new UserReviews();
+        User userOne = new User("1");
+        Review reviewOne = new Review (userOne, "this i greaet!");
+        ArrayList<Review> reviews = new ArrayList<Review>();
+        reviews.add(reviewOne);
+        Book bookOne = new Book(reviews, "BookThree");
+        //main.addBook(bookOne);
+        System.out.println(main.findReviews("BookTwo"));
+        main.addReviewsToFile();
+        
+
     }
     
 }
