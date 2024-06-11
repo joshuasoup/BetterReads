@@ -22,8 +22,10 @@ public class UserReviews {
     File reviews = new File("BetterReadsReviews.txt");
     File reviewsOnly = new File("BetterReadsReviewsOnly.txt");
     
-    public void addReview(Book book, Review review){
-        book.getReviews().add(review);
+    public void addReview(Book book, String review, String user, String rating){
+        User newUser = new User(user);
+        Review newReview = new Review(newUser, user, rating);
+        book.getReviews().add(newReview);
     }
     
     public void addBook(Book book){
@@ -64,6 +66,31 @@ public class UserReviews {
         }
     }
     public String findReviews(String name){
+        
+        try {
+            String print = "";
+            Scanner s = new Scanner(reviews);
+            String data = s.nextLine();
+            while (!data.equals(name)){
+                data = s.nextLine();
+            }
+            
+            while (s.hasNextLine()) {
+                data = s.nextLine();
+                if (data.startsWith("\"")) {
+                    print += data + "\n";
+                } else {
+                break; // Exit the loop if the line does not start with a quotation mark
+                }
+            }
+            String cleanedPrint = print.toString().replaceAll("[\\r\\n]+$", "");
+            return cleanedPrint;
+        } catch (IOException ex) {
+            System.out.println("Something went wrong");
+        }
+        return null;
+    }
+    public String findBook(String name){
         
         try {
             String print = "";

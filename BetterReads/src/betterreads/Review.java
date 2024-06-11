@@ -19,13 +19,23 @@ public class Review {
         this.user = user;
     }
     
-    public Review(User user, String review){
+    public Review(User user, String review, String rating){
         setUser(user);
         setReview(review);
+        setRating(rating);
     }
     
     private User user;
     private String review;
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+    private String rating;
 
     public String getReview() {
         return review;
@@ -36,7 +46,7 @@ public class Review {
     }
     
     public String printReview(){
-        String print = "\" " + getReview() + "\" - " + getUser().getId();
+        String print = "\" " + getReview() + "\" - " + getUser().getId() + "*" + getRating();
         return print;
     }
 }
