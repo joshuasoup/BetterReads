@@ -18,6 +18,7 @@ public class Book {
     private int pageCount;
     private int onlineRating;
     private String snippet;
+    private String bookCover;
     
     
     
@@ -39,9 +40,14 @@ public class Book {
             System.out.println(e);
             onlineRating = 0;
         }
+        
+        
         JSONObject s = o.getJSONObject("searchInfo");
         snippet = s.getString("textSnippet");
-        System.out.println(name + " | " + description + " | " + pageCount + " | " + onlineRating + " | " + snippet);
+        
+        bookCover = volumeInfo.getJSONObject("imageLinks").getString("thumbnail");
+        
+        System.out.println(name + " | " + description + " | " + pageCount + " | " + onlineRating + " | " + snippet + " | " + bookCover);
         
         //volumeInfo JObject, description String, pageCount Int, categories JSONArray
         //averageRating int, imageLinks String, searchInfo JObject - textSnippet String
