@@ -4,7 +4,9 @@
  */
 package betterreads;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,10 +24,34 @@ public class UserReviews {
     File reviews = new File("BetterReadsReviews.txt");
     File reviewsOnly = new File("BetterReadsReviewsOnly.txt");
     
-    public void addReview(Book book, String review, String user, String rating){
-        User newUser = new User(user);
-        Review newReview = new Review(newUser, user, rating);
-        book.getReviews().add(newReview);
+    public void addReview(String book, String review, String user, String rating){
+        String newReview = "\" " + review + "\" - " + user + "*" + rating;
+        File temp;
+        try {
+            temp = File.createTempFile("temp-file-name", ".tmp");
+        
+        BufferedReader br = new BufferedReader(new FileReader(reviews));
+        PrintWriter pw =  new PrintWriter(new FileWriter( temp ));
+        String line;
+        int lineCount = 0;
+        while ((line = br.readLine()) != null) {
+            pw.println(line);
+            if(line.equals(book)){
+                pw.println(newReview);
+            }
+            lineCount++;
+        }
+        br.close();
+        pw.close();
+        reviews.delete();
+        temp.renameTo(reviews);
+        } catch (IOException ex) {
+            Logger.getLogger(UserReviews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deleteReview(int count){
+        
     }
     
     public void addBook(Book book){

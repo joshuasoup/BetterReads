@@ -4,6 +4,8 @@
  */
 package betterreads;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author menot
@@ -13,6 +15,8 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
     private final int userId;
     private int bookId;
     private String bookTitle;
+    private Book book;
+    GoogleBooksAPI api = new GoogleBooksAPI();
 
     /**
      * Creates new form BookDescriptionScreen
@@ -21,8 +25,8 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
      */
     public BookDescriptionScreen(int userId, int bookId) {
         this.userId = userId;
-        this.bookId = bookId;
-        
+        ArrayList<Book> books = api.findBook(String.valueOf(bookId));
+        book = books.get(0);
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
         
@@ -44,14 +48,12 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         back = new javax.swing.JButton();
         LogOut = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-
-        jLabel1.setText("book screen");
 
         back.setText("Back");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -67,30 +69,34 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Add Review");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(jLabel1)
-                .addContainerGap(176, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(59, 59, 59)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                .addGap(47, 47, 47)
                 .addComponent(LogOut)
                 .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addContainerGap(252, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back)
-                    .addComponent(LogOut))
+                    .addComponent(LogOut)
+                    .addComponent(jButton1))
                 .addGap(25, 25, 25))
         );
 
@@ -111,6 +117,10 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         });
         this.dispose();
     }//GEN-LAST:event_LogOutActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,6 +160,6 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LogOut;
     private javax.swing.JButton back;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
