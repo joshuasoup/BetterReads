@@ -13,17 +13,18 @@ import java.util.ArrayList;
 public class BookDescriptionScreen extends javax.swing.JFrame {
 
     private final int userId;
-    private int bookId;
-    private String bookTitle;
+//    private int bookId;
+//    private String bookTitle;
     private Book book;
     GoogleBooksAPI api = new GoogleBooksAPI();
+    
 
     /**
      * Creates new form BookDescriptionScreen
      *
      * @param userId
      */
-    public BookDescriptionScreen(int userId, int bookId) {
+    public BookDescriptionScreen(int userId, long bookId) {
         this.userId = userId;
         ArrayList<Book> books = api.findBook(String.valueOf(bookId));
         book = books.get(0);
@@ -31,9 +32,17 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         setExtendedState(this.MAXIMIZED_BOTH);
     }
 
+    public BookDescriptionScreen(int userId, Book book) {
+        this.userId = userId;
+        this.book = book;
+        initComponents();
+        setExtendedState(this.MAXIMIZED_BOTH);
+    }
+    
     public BookDescriptionScreen(int userId, String bookTitle) {
         this.userId = userId;
-        this.bookTitle = bookTitle;
+        ArrayList<Book> books = api.findBook(bookTitle);
+        book = books.get(0);
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
     }
@@ -49,7 +58,12 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
 
         back = new javax.swing.JButton();
         LogOut = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        addReviewButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -68,12 +82,27 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Add Review");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addReviewButton.setText("Add Review");
+        addReviewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addReviewButtonActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText(book.getName());
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jTextArea1.setText(book.getDescription());
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Page count: " + book.getPageCount());
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Online Rating: " + book.getOnlineRating());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,21 +110,41 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                .addGap(47, 47, 47)
-                .addComponent(LogOut)
-                .addGap(28, 28, 28))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(125, 125, 125)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addComponent(addReviewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(47, 47, 47)
+                                .addComponent(LogOut)))
+                        .addGap(28, 28, 28))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(252, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
+                .addGap(166, 166, 166)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back)
                     .addComponent(LogOut)
-                    .addComponent(jButton1))
+                    .addComponent(addReviewButton))
                 .addGap(25, 25, 25))
         );
 
@@ -117,9 +166,11 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_LogOutActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void addReviewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addReviewButtonActionPerformed
+        AddReviewScreen s = new AddReviewScreen(userId,book);
+        s.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_addReviewButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,14 +202,19 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BookDescriptionScreen(0, 0).setVisible(true);
+                new BookDescriptionScreen(0, 9786070705359L).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LogOut;
+    private javax.swing.JButton addReviewButton;
     private javax.swing.JButton back;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

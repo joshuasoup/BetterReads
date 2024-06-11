@@ -169,7 +169,7 @@ public class SearchScreen extends javax.swing.JFrame {
 
     private void searchConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchConfirmActionPerformed
         try {
-            int bookId = Integer.parseInt(searchInput.getText());
+            Long bookId = Long.parseLong(searchInput.getText());
             BookDescriptionScreen b = new BookDescriptionScreen(userId, bookId);
             b.setVisible(true);
             this.dispose(); 

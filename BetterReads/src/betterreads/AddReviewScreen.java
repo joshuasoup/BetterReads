@@ -164,7 +164,7 @@ public class AddReviewScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void reviewCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewCancelActionPerformed
-        BookDescriptionScreen b = new BookDescriptionScreen(userId, bookTitle);
+        BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
         b.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_reviewCancelActionPerformed
