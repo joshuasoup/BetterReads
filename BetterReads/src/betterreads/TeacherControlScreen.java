@@ -10,6 +10,8 @@ package betterreads;
  */
 public class TeacherControlScreen extends javax.swing.JFrame {
 
+    int numTotReviews = 7;
+
     /**
      * Creates new form TeacherControlScreen
      */
@@ -27,13 +29,17 @@ public class TeacherControlScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        teacherInstructionLabel = new javax.swing.JLabel();
         Back = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        reviewSelector = new javax.swing.JComboBox<>();
+        deleteConfirm = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jLabel1.setText("Teach");
+        teacherInstructionLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        teacherInstructionLabel.setText("Select review from dropdown menu, then confirm deletion");
 
         Back.setText("Back");
         Back.addActionListener(new java.awt.event.ActionListener() {
@@ -42,31 +48,52 @@ public class TeacherControlScreen extends javax.swing.JFrame {
             }
         });
 
+        reviewSelector.setModel(menuLength());
+        reviewSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reviewSelectorActionPerformed(evt);
+            }
+        });
+
+        deleteConfirm.setText("Delete");
+        deleteConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteConfirmActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(336, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(reviewSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(teacherInstructionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 272, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(deleteConfirm)
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Back)
-                .addContainerGap(271, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Back)
+                    .addComponent(reviewSelector))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteConfirm)
+                    .addComponent(teacherInstructionLabel))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -80,6 +107,32 @@ public class TeacherControlScreen extends javax.swing.JFrame {
         });
         this.dispose();
     }//GEN-LAST:event_BackActionPerformed
+
+    private void deleteConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteConfirmActionPerformed
+        try {
+            int removedReview = Integer.parseInt(reviewSelector.getSelectedItem().toString());
+            //Perform deletion here ****************************************************************************
+            TeacherControlScreen t = new TeacherControlScreen();
+            t.setVisible(true);
+            this.dispose();
+        } catch (NumberFormatException e) {
+            teacherInstructionLabel.setText("Please select valid review");
+        }
+    }//GEN-LAST:event_deleteConfirmActionPerformed
+
+    private void reviewSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewSelectorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reviewSelectorActionPerformed
+
+    private javax.swing.ComboBoxModel menuLength() {
+        String[] numbers = new String[numTotReviews + 1];
+        numbers[0] = "Make Selection:";
+        for (int i = 1; i <= numTotReviews; i++) {
+            numbers[i] = String.valueOf(i);
+        }
+        javax.swing.ComboBoxModel list = new javax.swing.DefaultComboBoxModel<>(numbers);
+        return list;
+    }
 
     /**
      * @param args the command line arguments
@@ -118,6 +171,9 @@ public class TeacherControlScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton deleteConfirm;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox<String> reviewSelector;
+    private javax.swing.JLabel teacherInstructionLabel;
     // End of variables declaration//GEN-END:variables
 }

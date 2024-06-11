@@ -78,6 +78,24 @@ public class Book {
         return getName();
     }
     
-    
+    public String getDescription() {
+        return description;
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public int getOnlineRating() {
+        return onlineRating;
+    }
+
+    public String getSnippet() {
+        return snippet;
+    }
+
+    public String getBookCover() {
+        return bookCover;
+    }
     
 }
