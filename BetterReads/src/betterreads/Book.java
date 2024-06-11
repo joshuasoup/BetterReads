@@ -5,13 +5,48 @@
 package betterreads;
 
 import java.util.ArrayList;
+import org.json.JSONObject;
 
 /**
  *
  * @author bmara
  */
 public class Book {
-
+    private ArrayList<Review> reviews;
+    private String name;
+    private String description;
+    private int pageCount;
+    private int onlineRating;
+    private String snippet;
+    
+    
+    
+    public Book(JSONObject o){
+        JSONObject volumeInfo = o.getJSONObject("volumeInfo");
+        name = volumeInfo.getString("title");
+        try{
+            description = volumeInfo.getString("description");
+        } catch (Exception e ) {
+            description = "";
+            System.out.println(e);
+        }
+        
+        pageCount = volumeInfo.getInt("pageCount");
+        
+        try{
+            onlineRating = volumeInfo.getInt("averageRating");
+        }catch (Exception e){
+            System.out.println(e);
+            onlineRating = 0;
+        }
+        JSONObject s = o.getJSONObject("searchInfo");
+        snippet = s.getString("textSnippet");
+        System.out.println(name + " | " + description + " | " + pageCount + " | " + onlineRating + " | " + snippet);
+        
+        //volumeInfo JObject, description String, pageCount Int, categories JSONArray
+        //averageRating int, imageLinks String, searchInfo JObject - textSnippet String
+    }
+    
     public ArrayList<Review> getReviews() {
         return reviews;
     }
@@ -20,8 +55,6 @@ public class Book {
         this.reviews = reviews;
     }
     
-    private ArrayList<Review> reviews;
-
     public String getName() {
         return name;
     }
@@ -29,7 +62,6 @@ public class Book {
     public void setName(String name) {
         this.name = name;
     }
-    private String name;
     
     public Book(ArrayList<Review> reviews, String name){
         setReviews(reviews);
@@ -39,5 +71,7 @@ public class Book {
     public String print(){
         return getName();
     }
+    
+    
     
 }
