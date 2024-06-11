@@ -30,6 +30,7 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         book = books.get(0);
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
+        
     }
 
     public BookDescriptionScreen(int userId, Book book) {
