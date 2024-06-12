@@ -111,7 +111,8 @@ public class TeacherControlScreen extends javax.swing.JFrame {
     private void deleteConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteConfirmActionPerformed
         try {
             int removedReview = Integer.parseInt(reviewSelector.getSelectedItem().toString());
-            //Perform deletion here ****************************************************************************
+            UserReviews x = new UserReviews();
+            x.deleteReview(removedReview);
             TeacherControlScreen t = new TeacherControlScreen();
             t.setVisible(true);
             this.dispose();
