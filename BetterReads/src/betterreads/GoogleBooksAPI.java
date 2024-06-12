@@ -29,7 +29,7 @@ public class GoogleBooksAPI {
             
             //iterate through the different books with matching isbns
             System.out.println(totalBooks);
-            for(int i = 0; i < totalBooks; i++){
+            for(int i = 0; i < jArray.length(); i++){
                 Book b = new Book(jArray.getJSONObject(i));
                 books.add(b);
             }
