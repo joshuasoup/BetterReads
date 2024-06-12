@@ -172,10 +172,7 @@ public class SearchScreen extends javax.swing.JFrame {
         String bookIdentifier = searchInput.getText();
         ArrayList<Book> books = api.findBook(bookIdentifier);
         if (books.isEmpty()) {
-            // Handle the case where no book is found
             scanBookLabel.setText("No books found with the given ID. If issue persists, check network connection.");
-            
-            // You can also show a dialog to the user or handle it as needed
             return;
         }
         
