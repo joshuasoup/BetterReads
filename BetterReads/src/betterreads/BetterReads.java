@@ -18,7 +18,7 @@ public class BetterReads {
      */
     public static void main(String[] args) {
         GoogleBooksAPI api = new GoogleBooksAPI();
-        api.findBook("9786070705359");
+        api.findBook("9782226403292");
     }
     
 
