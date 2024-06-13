@@ -21,7 +21,7 @@ public class AddReviewScreen extends javax.swing.JFrame {
 
     
 
-    private final int userId;
+    private final long userId;
     private final Book book;
     private final String bookTitle;
     private int rating = 1;
@@ -32,7 +32,7 @@ public class AddReviewScreen extends javax.swing.JFrame {
     /**
      * Creates new form AddReviewScreen
      */
-    public AddReviewScreen(int userId, Book book) {
+    public AddReviewScreen(long userId, Book book) {
         this.userId = userId;
         this.book = book;
         bookTitle = book.getName();
@@ -177,9 +177,9 @@ public class AddReviewScreen extends javax.swing.JFrame {
 
     private void reviewConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewConfirmActionPerformed
         String reviewContent = reviewContentInput.getText();
-        int reviewRating = (int) starRatingSelector.getSelectedItem();
+        String reviewRating = starRatingSelector.getSelectedItem().toString();
         UserReviews x = new UserReviews();
-        x.addReview(bookTitle, reviewContent, String.valueOf(userId), String.valueOf(reviewRating));
+        x.addReview(bookTitle, reviewContent, String.valueOf(userId), reviewRating);
         BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
         b.setVisible(true);
         this.dispose();

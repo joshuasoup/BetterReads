@@ -18,7 +18,7 @@ import javax.swing.ImageIcon;
  */
 public class BookDescriptionScreen extends javax.swing.JFrame {
 
-    private final int userId;
+    private final long userId;
 //    private int bookId;
 //    private String bookTitle;
     private Book book;
@@ -29,7 +29,7 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
      *
      * @param userId
      */
-    public BookDescriptionScreen(int userId, long bookId) {
+    public BookDescriptionScreen(long userId, long bookId) {
         this.userId = userId;
         ArrayList<Book> books = api.findBook(String.valueOf(bookId));
         book = books.get(0);
@@ -39,7 +39,7 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
 
     }
 
-    public BookDescriptionScreen(int userId, Book book) {
+    public BookDescriptionScreen(long userId, Book book) {
         this.userId = userId;
         this.book = book;
         initComponents();
@@ -48,7 +48,7 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
 
     }
 
-    public BookDescriptionScreen(int userId, String bookTitle) {
+    public BookDescriptionScreen(long userId, String bookTitle) {
         this.userId = userId;
         ArrayList<Book> books = api.findBook(bookTitle);
         book = books.get(0);

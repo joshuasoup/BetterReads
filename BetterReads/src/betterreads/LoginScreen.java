@@ -103,7 +103,7 @@ public class LoginScreen extends javax.swing.JFrame {
 
     private void loginConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginConfirmActionPerformed
         try {
-            int userId = Integer.parseInt(idInputField.getText());
+            Long userId = Long.parseLong(idInputField.getText());
             if (userId == 1234) {
                 TeacherControlScreen t = new TeacherControlScreen();
                 t.setVisible(true);

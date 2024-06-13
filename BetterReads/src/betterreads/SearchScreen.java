@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
  */
 public class SearchScreen extends javax.swing.JFrame {
 
-    private final int userId;
+    private final Long userId;
 
     private BufferedImage betterReadsLogo;
     private BufferedImage nhsLogo;
@@ -29,7 +29,7 @@ public class SearchScreen extends javax.swing.JFrame {
      * @param userId allows the inputted userId on the login screen to be sent
      * to this screen
      */
-    public SearchScreen(int userId) {
+    public SearchScreen(long userId) {
         this.userId = userId;
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
