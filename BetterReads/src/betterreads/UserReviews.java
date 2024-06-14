@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -96,6 +97,10 @@ public class UserReviews {
         } catch (IOException ex) {
             Logger.getLogger(UserReviews.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public ArrayList<Review> getAllReviews(){
+        return new ArrayList<Review>();
     }
     
     public void addBook(Book book){

@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 
 /**
- *
+ 
+ * 
  * @author menot
  */
 public class BetterReads {
@@ -22,9 +23,9 @@ public class BetterReads {
         // TODO code application logic here
         UserReviews main = new UserReviews();
         User userOne = new User("1");
-        Review reviewOne = new Review (userOne, "this i greaet!", "4");
+        //Review reviewOne = new Review (userOne, "this i greaet!", "4");
         ArrayList<Review> reviews = new ArrayList<Review>();
-        reviews.add(reviewOne);
+       // reviews.add(reviewOne);
         Book bookOne = new Book(reviews, "BookThree");
         //main.addBook(bookOne);
         //main.addReviewsToFile();
