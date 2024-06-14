@@ -1,6 +1,15 @@
-" this i greaet!" - betterreads.User@27973e9b
-" this i greaet!" - betterreads.User@27973e9b
-" this i greaet!" - betterreads.User@27973e9b
-" this i greaet!" - 1
-" this i greaet!" - 1
-" this i greaet!" - 1
+" review" - user*rating
+" review" - user*rating
+" this i greaet!" - 1*4
+" review" - user*rating
+" this i greaet!" - 1*4
+" review" - user*rating
+" this i greaet!" - 1*4
+" review" - user*rating
+" this i greaet!" - 1*4
+" review" - user*rating
+" this i greaet!" - 1*4
+" review" - user*rating
+" this i greaet!" - 1*4
+" this i greaet!" - 1*4
+" this i greaet!" - 1*4

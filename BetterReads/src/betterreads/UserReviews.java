@@ -26,12 +26,15 @@ public class UserReviews {
     
     public void addReview(String book, String review, String user, String rating){
         String newReview = "\" " + review + "\" - " + user + "*" + rating;
+        
         File temp;
         try {
+            Scanner s = new Scanner(reviewsOnly);
             temp = File.createTempFile("temp-file-name", ".tmp");
         
         BufferedReader br = new BufferedReader(new FileReader(reviews));
-        PrintWriter pw =  new PrintWriter(new FileWriter( temp ));
+        PrintWriter pw =  new PrintWriter(new FileWriter(temp));
+        PrintWriter pwTwo =  new PrintWriter(new FileWriter(reviewsOnly, true));
         String line;
         int lineCount = 0;
         while ((line = br.readLine()) != null) {
@@ -41,6 +44,8 @@ public class UserReviews {
             }
             lineCount++;
         }
+        pwTwo.println(newReview);
+        pwTwo.close();
         br.close();
         pw.close();
         reviews.delete();
@@ -51,7 +56,46 @@ public class UserReviews {
     }
     
     public void deleteReview(int count){
+        File temp;
+        File tempTwo;
         
+        try {
+            temp = File.createTempFile("temporary-file-name", ".tmp");
+            tempTwo = File.createTempFile("temporaryTwo-file-name", ".tmp");
+            int counter=0;
+        
+        BufferedReader br = new BufferedReader(new FileReader(reviewsOnly));
+        PrintWriter pw =  new PrintWriter(new FileWriter(temp), true);
+        BufferedReader brTwo = new BufferedReader(new FileReader(reviews));
+        PrintWriter pwTwo =  new PrintWriter(new FileWriter(tempTwo),true);
+        String deletedReview = "";
+        String line;
+        String lineTwo;
+        while ((line = br.readLine()) != null) {
+            counter++;
+            if(!(counter == count)){
+                pw.println(line);
+            }
+            else {
+                deletedReview = line;
+            }
+        }
+        while ((lineTwo = brTwo.readLine()) != null) {
+            if(!(lineTwo.equals(deletedReview))){
+                pwTwo.println(lineTwo);
+            }
+        }
+        br.close();
+        pw.close();
+        brTwo.close();
+        pwTwo.close();
+        reviewsOnly.delete();
+        reviews.delete();
+        temp.renameTo(reviewsOnly);
+        tempTwo.renameTo(reviews);
+        } catch (IOException ex) {
+            Logger.getLogger(UserReviews.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void addBook(Book book){
@@ -116,30 +160,24 @@ public class UserReviews {
         }
         return null;
     }
-    public String findBook(String name){
+    public boolean findBook(String name){
         
         try {
-            String print = "";
             Scanner s = new Scanner(reviews);
+            name = name.toLowerCase();
             String data = s.nextLine();
+            data = data.toLowerCase();
             while (!data.equals(name)){
                 data = s.nextLine();
+                data = data.toLowerCase();
             }
-            
-            while (s.hasNextLine()) {
-                data = s.nextLine();
-                if (data.startsWith("\"")) {
-                    print += data + "\n";
-                } else {
-                break; // Exit the loop if the line does not start with a quotation mark
-                }
+            if (data.equals(name)){
+                return true;
             }
-            String cleanedPrint = print.toString().replaceAll("[\\r\\n]+$", "");
-            return cleanedPrint;
         } catch (IOException ex) {
             System.out.println("Something went wrong");
         }
-        return null;
+        return false;
     }
     
 }

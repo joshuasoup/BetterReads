@@ -74,6 +74,9 @@ public class Book {
         setName(name);
         
     }
+    public Book(String name){
+        setName(name);
+    }
     public String print(){
         return getName();
     }
