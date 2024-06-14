@@ -187,8 +187,8 @@ public class SearchScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void searchConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchConfirmActionPerformed
-
-        String bookIdentifier = searchInput.getText();
+        String bookIdentifier = searchInput.getText().replaceAll(" ", "%20");
+        
         ArrayList<Book> books = api.findBook(bookIdentifier);
         System.out.println(books.size());
         if (books.isEmpty()) {

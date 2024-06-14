@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 
 /**
- *
+ 
+ * 
  * @author menot
  */
 public class BetterReads {
