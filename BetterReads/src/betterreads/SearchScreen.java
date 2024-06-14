@@ -33,6 +33,7 @@ public class SearchScreen extends javax.swing.JFrame {
         this.userId = userId;
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
+        bookSelector.setEnabled(false);
         loadImage();
     }
 
@@ -52,6 +53,7 @@ public class SearchScreen extends javax.swing.JFrame {
         logOut = new javax.swing.JButton();
         searchInput = new javax.swing.JTextField();
         scanBookLabel = new javax.swing.JLabel();
+        bookSelector = new javax.swing.JComboBox<>();
 
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +77,7 @@ public class SearchScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension((int) (this.getWidth() * (3.0 / 4.0)), 100));
         setResizable(false);
 
         searchConfirm.setText("Search");
@@ -102,14 +105,17 @@ public class SearchScreen extends javax.swing.JFrame {
         scanBookLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         scanBookLabel.setText("Scan Book Barcode or Enter Book Title");
 
+        bookSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        bookSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookSelectorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logOut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
             .addComponent(scanBookLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(85, 85, 85)
@@ -119,11 +125,22 @@ public class SearchScreen extends javax.swing.JFrame {
                 .addGap(95, 95, 95)
                 .addComponent(searchConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(95, 95, 95))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(logOut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(bookSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(100, 100, 100))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(68, Short.MAX_VALUE)
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(bookSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scanBookLabel)
                 .addGap(44, 44, 44)
                 .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,11 +192,12 @@ public class SearchScreen extends javax.swing.JFrame {
             scanBookLabel.setText("No books found with the given ID. If issue persists, check network connection.");
             return;
         }
-        
-        Book book = books.get(0);
-        BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
-        b.setVisible(true);
-        this.dispose();
+        bookSelector.setEnabled(true);
+//        
+//        Book book = books.get(0);
+//        BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
+//        b.setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_searchConfirmActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
@@ -195,6 +213,10 @@ public class SearchScreen extends javax.swing.JFrame {
     private void searchInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchInputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchInputActionPerformed
+
+    private void bookSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookSelectorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookSelectorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,6 +254,7 @@ public class SearchScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> bookSelector;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField jTextField1;

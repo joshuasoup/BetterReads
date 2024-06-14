@@ -4,18 +4,29 @@
  */
 package betterreads;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author menot
  */
 public class TeacherControlScreen extends javax.swing.JFrame {
 
-    int numTotReviews = 7;
+    ArrayList<Review> reviews;
+//    ArrayList<Review> reviews = new ArrayList<>();
+    int numTotReviews;
+    UserReviews uReviews = new UserReviews();
 
     /**
      * Creates new form TeacherControlScreen
      */
     public TeacherControlScreen() {
+//        reviews.add(new Review("user1", "I liked this book", "5"));
+//        reviews.add(new Review("user2", "It was an okay read", "3"));
+//        reviews.add(new Review("user3", "Did not enjoy it", "1"));
+        reviews = uReviews.getAllReviews();
+        numTotReviews = reviews.size();
+        System.out.println(reviews.size());
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
     }
@@ -32,6 +43,7 @@ public class TeacherControlScreen extends javax.swing.JFrame {
         teacherInstructionLabel = new javax.swing.JLabel();
         Back = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
+        reviewDisplay = new javax.swing.JTextArea();
         reviewSelector = new javax.swing.JComboBox<>();
         deleteConfirm = new javax.swing.JButton();
 
@@ -47,6 +59,13 @@ public class TeacherControlScreen extends javax.swing.JFrame {
                 BackActionPerformed(evt);
             }
         });
+
+        reviewDisplay.setColumns(20);
+        reviewDisplay.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        reviewDisplay.setRows(5);
+        reviewDisplay.setText(allReviewsText());
+        reviewDisplay.setFocusable(false);
+        jScrollPane2.setViewportView(reviewDisplay);
 
         reviewSelector.setModel(menuLength());
         reviewSelector.addActionListener(new java.awt.event.ActionListener() {
@@ -111,8 +130,7 @@ public class TeacherControlScreen extends javax.swing.JFrame {
     private void deleteConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteConfirmActionPerformed
         try {
             int removedReview = Integer.parseInt(reviewSelector.getSelectedItem().toString());
-            UserReviews x = new UserReviews();
-            x.deleteReview(removedReview);
+            uReviews.deleteReview(removedReview);
             TeacherControlScreen t = new TeacherControlScreen();
             t.setVisible(true);
             this.dispose();
@@ -133,6 +151,21 @@ public class TeacherControlScreen extends javax.swing.JFrame {
         }
         javax.swing.ComboBoxModel list = new javax.swing.DefaultComboBoxModel<>(numbers);
         return list;
+    }
+    
+    private String allReviewsText(){
+        String allReviews;
+        StringBuilder temp = new StringBuilder();
+        int count = 1;
+        for (Review x:reviews){
+            String user = x.getUser();
+            String review = x.getReview();
+            temp.append(count + ". User: " + user + "  Rating: "+ review+"\n\n");
+            count++;
+        }
+        allReviews = temp.toString();
+        
+        return allReviews;
     }
 
     /**
@@ -174,6 +207,7 @@ public class TeacherControlScreen extends javax.swing.JFrame {
     private javax.swing.JButton Back;
     private javax.swing.JButton deleteConfirm;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea reviewDisplay;
     private javax.swing.JComboBox<String> reviewSelector;
     private javax.swing.JLabel teacherInstructionLabel;
     // End of variables declaration//GEN-END:variables
