@@ -179,7 +179,14 @@ public class AddReviewScreen extends javax.swing.JFrame {
         String reviewContent = reviewContentInput.getText();
         String reviewRating = starRatingSelector.getSelectedItem().toString();
         UserReviews x = new UserReviews();
-        x.addReview(bookTitle, reviewContent, String.valueOf(userId), reviewRating);
+        if (x.findBook(bookTitle)){
+            x.addReview(bookTitle, reviewContent, String.valueOf(userId), reviewRating);
+        }
+        else{
+            Book book = new Book(bookTitle);
+            x.addBook(book);
+            x.addReview(bookTitle, reviewContent, String.valueOf(userId), reviewRating);
+        }
         BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
         b.setVisible(true);
         this.dispose();

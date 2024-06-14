@@ -27,18 +27,19 @@ public class BetterReads {
         ArrayList<Review> reviews = new ArrayList<Review>();
        // reviews.add(reviewOne);
         Book bookOne = new Book(reviews, "BookThree");
-        main.addBook(bookOne);
+        //main.addBook(bookOne);
         //main.addReviewsToFile();
-        main.addReview("BookThree", "gugg", "user5", "4");
+        //main.addReview("BookThree", "googoogaagaa", "user5", "4");
+        main.deleteReview(2);
         
 
 
-        GoogleBooksAPI api = new GoogleBooksAPI();
-        api.findBook("9782226403292");
-        ArrayList<Book> books = api.findBook("9786070705359");
-        String test = books.get(0).getBookCover();
-        System.out.println(books.size());
-        System.out.println(test);
+//        GoogleBooksAPI api = new GoogleBooksAPI();
+//        api.findBook("9782226403292");
+//        ArrayList<Book> books = api.findBook("9786070705359");
+//        String test = books.get(0).getBookCover();
+//        System.out.println(books.size());
+//        System.out.println(test);
 //                UserReviews main = new UserReviews();
 //
 //         //TODO code application logic here
