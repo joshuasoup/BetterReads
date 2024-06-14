@@ -192,12 +192,12 @@ public class SearchScreen extends javax.swing.JFrame {
             scanBookLabel.setText("No books found with the given ID. If issue persists, check network connection.");
             return;
         }
-        bookSelector.setEnabled(true);
+        //bookSelector.setEnabled(true);
 //        
-//        Book book = books.get(0);
-//        BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
-//        b.setVisible(true);
-//        this.dispose();
+        Book book = books.get(0);
+        BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
+        b.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_searchConfirmActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
