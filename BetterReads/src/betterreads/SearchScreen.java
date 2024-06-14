@@ -186,7 +186,8 @@ public class SearchScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void searchConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchConfirmActionPerformed
-        String bookIdentifier = searchInput.getText();
+        String bookIdentifier = searchInput.getText().replaceAll(" ", "%20");
+        
         ArrayList<Book> books = api.findBook(bookIdentifier);
         if (books.isEmpty()) {
             scanBookLabel.setText("No books found with the given ID. If issue persists, check network connection.");

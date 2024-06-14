@@ -14,6 +14,7 @@ public class GoogleBooksAPI {
     public ArrayList<Book> findBook (String searchTerm){
         ArrayList<Book> books = new ArrayList<>();
         try {
+            
             url = new URL("https://www.googleapis.com/books/v1/volumes?q=" + searchTerm);
             req = (HttpURLConnection) url.openConnection();
             req.setRequestMethod("GET");
@@ -24,11 +25,9 @@ public class GoogleBooksAPI {
                 response.append(inputLine);
             }             
             JSONObject jObject = new JSONObject(response.toString());
-            int totalBooks = jObject.getInt("totalItems");
             JSONArray jArray = jObject.getJSONArray("items");
             
             //iterate through the different books with matching isbns
-            System.out.println(totalBooks);
             for(int i = 0; i < jArray.length(); i++){
                 Book b = new Book(jArray.getJSONObject(i));
                 books.add(b);
