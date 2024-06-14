@@ -4,6 +4,7 @@
  */
 package betterreads;
 
+import betterreads.Book;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -186,18 +187,34 @@ public class SearchScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void searchConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchConfirmActionPerformed
+
         String bookIdentifier = searchInput.getText();
         ArrayList<Book> books = api.findBook(bookIdentifier);
+        System.out.println(books.size());
         if (books.isEmpty()) {
             scanBookLabel.setText("No books found with the given ID. If issue persists, check network connection.");
+            bookSelector.setEnabled(false);
             return;
         }
-        //bookSelector.setEnabled(true);
+
+        // Clear the existing items in the JComboBox
+        bookSelector.removeAllItems();
+
+        // Add the names of the books to the JComboBox
+        for (Book book : books) {
+            bookSelector.addItem(book.getName());
+        }
+
+        // Enable the JComboBox
+        bookSelector.setEnabled(true);
+
 //        
-        Book book = books.get(0);
-        BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
-        b.setVisible(true);
-        this.dispose();
+//        Book book = books.get(0);
+//        BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
+//
+//        b.setVisible(true);
+//
+//        this.dispose();
     }//GEN-LAST:event_searchConfirmActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
