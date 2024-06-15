@@ -51,9 +51,12 @@ public class LoginScreen extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
 
+        loginConfirm.setFont(new java.awt.Font("Kohinoor Gujarati", 1, 18)); // NOI18N
         loginConfirm.setText("Login");
+        loginConfirm.setToolTipText("");
         loginConfirm.setBorderPainted(false);
         loginConfirm.setOpaque(true);
+        loginConfirm.setPreferredSize(new java.awt.Dimension(79, 50));
         loginConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginConfirmActionPerformed(evt);
@@ -86,12 +89,12 @@ public class LoginScreen extends javax.swing.JFrame {
                         .addGap(174, 174, 174)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
+                        .addGap(300, 300, 300)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(idInputField)
                             .addComponent(loginConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(loginMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 222, Short.MAX_VALUE))))
-                .addGap(85, 85, 85))
+                .addGap(300, 300, 300))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,8 +106,8 @@ public class LoginScreen extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(idInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(loginConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(loginConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
