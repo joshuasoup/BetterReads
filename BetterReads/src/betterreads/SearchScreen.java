@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author menot
+ * @author Jaden Wickens
  */
 public class SearchScreen extends javax.swing.JFrame {
 

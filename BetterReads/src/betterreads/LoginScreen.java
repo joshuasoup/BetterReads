@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author menot
+ * @author Jaden Wickens
  */
 public class LoginScreen extends javax.swing.JFrame {
 

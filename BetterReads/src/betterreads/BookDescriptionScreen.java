@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author menot
+ * @author Jaden Wickens
  */
 public class BookDescriptionScreen extends javax.swing.JFrame {
 
@@ -23,23 +23,31 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
 //    private String bookTitle;
     private Book book;
     GoogleBooksAPI api = new GoogleBooksAPI();
+    private UserReviews Urev = new UserReviews();
+    ArrayList<Review> curBookReview;
 
     /**
      * Creates new form BookDescriptionScreen
      *
      * @param userId
      */
-    public BookDescriptionScreen(long userId, long bookId) {
-        this.userId = userId;
-        ArrayList<Book> books = api.findBook(String.valueOf(bookId));
-        book = books.get(0);
-        initComponents();
-        setExtendedState(this.MAXIMIZED_BOTH);
-        loadImage(book.getBookCover());
-
-    }
-
+//    public BookDescriptionScreen(long userId, long bookId) {
+//        this.userId = userId;
+//        ArrayList<Book> books = api.findBook(String.valueOf(bookId));
+//        book = books.get(0);
+//        initComponents();
+//        setExtendedState(this.MAXIMIZED_BOTH);
+//        loadImage(book.getBookCover());
+//        
+//
+//    }
     public BookDescriptionScreen(long userId, Book book) {
+        //curBookReview = Urev.findReviews(book.getName());
+        curBookReview = new ArrayList<>();
+        curBookReview.add(new Review("0", "this is the first one", "5"));
+        curBookReview.add(new Review("1", "this is the second one", "4"));
+        curBookReview.add(new Review("2", "this is the Third one", "3"));
+        curBookReview.add(new Review("3", "this is the Fourth one", "2"));
         this.userId = userId;
         this.book = book;
         initComponents();
@@ -48,16 +56,15 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
 
     }
 
-    public BookDescriptionScreen(long userId, String bookTitle) {
-        this.userId = userId;
-        ArrayList<Book> books = api.findBook(bookTitle);
-        book = books.get(0);
-        initComponents();
-        setExtendedState(this.MAXIMIZED_BOTH);
-        loadImage(book.getBookCover());
-        
-    }
-
+//    public BookDescriptionScreen(long userId, String bookTitle) {
+//        this.userId = userId;
+//        ArrayList<Book> books = api.findBook(bookTitle);
+//        book = books.get(0);
+//        initComponents();
+//        setExtendedState(this.MAXIMIZED_BOTH);
+//        loadImage(book.getBookCover());
+//
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,6 +83,9 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        studentReviewsDisplay = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -118,6 +128,17 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Online Rating: " + book.getOnlineRating());
 
+        studentReviewsDisplay.setColumns(20);
+        studentReviewsDisplay.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        studentReviewsDisplay.setLineWrap(true);
+        studentReviewsDisplay.setRows(5);
+        studentReviewsDisplay.setText(getCurrentBookReviews());
+        studentReviewsDisplay.setFocusable(false);
+        jScrollPane2.setViewportView(studentReviewsDisplay);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Student Rating: " + getbookAvgRating());
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,15 +153,16 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(21, 21, 21)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))
+                                .addGap(52, 52, 52)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(59, 59, 59)
-                                .addComponent(addReviewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(addReviewButton, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
                                 .addGap(47, 47, 47)
                                 .addComponent(LogOut)))
                         .addGap(28, 28, 28))))
@@ -157,9 +179,15 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(12, 12, 12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                        .addGap(45, 45, 45)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back)
                     .addComponent(LogOut)
@@ -190,6 +218,33 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         s.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_addReviewButtonActionPerformed
+    private double getbookAvgRating() {
+        double ratingTemp = 0;
+        for (Review x : curBookReview) {
+            try{
+                ratingTemp += Integer.parseInt(x.getRating());
+            }catch(NumberFormatException e){
+                System.out.println("Rating not integer value");
+            }
+        }
+        return ratingTemp/curBookReview.size();
+    }
+    
+    private String getCurrentBookReviews() {
+        StringBuilder bookReviewsText = new StringBuilder();
+        boolean addLine = false;
+        bookReviewsText.append("Reviews from your classmates:\n\n");
+        for (Review x : curBookReview) {
+            if (addLine) {
+                bookReviewsText.append("________\n\n");
+            }
+            addLine = true;
+            String rating = x.getRating();
+            String review = x.getReview();
+            bookReviewsText.append(review + " - " + rating + "/5 Stars\n");
+        }
+        return bookReviewsText.toString();
+    }
 
     /**
      * @param args the command line arguments
@@ -221,7 +276,7 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BookDescriptionScreen(0, 1639731091L).setVisible(true);
+                new BookDescriptionScreen(0, new Book(new ArrayList(), "test")).setVisible(true);
             }
         });
     }
@@ -250,7 +305,10 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea studentReviewsDisplay;
     // End of variables declaration//GEN-END:variables
 }

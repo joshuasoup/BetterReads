@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author menot
+ * @author Jaden Wickens
  */
 public class AddReviewScreen extends javax.swing.JFrame {
 

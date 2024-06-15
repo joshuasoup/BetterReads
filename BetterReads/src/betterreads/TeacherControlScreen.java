@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author menot
+ * @author Jaden Wickens
  */
 public class TeacherControlScreen extends javax.swing.JFrame {
 
@@ -154,7 +154,6 @@ public class TeacherControlScreen extends javax.swing.JFrame {
     }
     
     private String allReviewsText(){
-        String allReviews;
         StringBuilder temp = new StringBuilder();
         int count = 1;
         for (Review x:reviews){
@@ -163,9 +162,7 @@ public class TeacherControlScreen extends javax.swing.JFrame {
             temp.append(count + ". User: " + user + "  Rating: "+ review+"\n\n");
             count++;
         }
-        allReviews = temp.toString();
-        
-        return allReviews;
+        return temp.toString();
     }
 
     /**
