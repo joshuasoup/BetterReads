@@ -38,6 +38,7 @@ public class SearchScreen extends javax.swing.JFrame {
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
         bookSelector.setEnabled(false);
+        bookSelector.setVisible(false);
         loadImage();
     }
 
@@ -207,6 +208,7 @@ public class SearchScreen extends javax.swing.JFrame {
         }
         isPopulatingComboBox = false;
         // Enable the JComboBox
+        bookSelector.setVisible(true);
         bookSelector.setEnabled(true);
         scanBookLabel.setText("Choose book from menu");
     }//GEN-LAST:event_searchConfirmActionPerformed
