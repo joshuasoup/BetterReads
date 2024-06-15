@@ -22,7 +22,7 @@ public class Review {
         this.user = user;
     }
 
-    public Review(String user, String review, String rating) {
+    public Review(String review, String user, String rating) {
         setUser(user);
         setReview(review);
         setRating(rating);
