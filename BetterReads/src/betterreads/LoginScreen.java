@@ -4,6 +4,7 @@
  */
 package betterreads;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -27,6 +28,8 @@ public class LoginScreen extends javax.swing.JFrame {
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
         loadImage();
+        Color c = new Color(255,255,255);
+        getContentPane().setBackground(c);
     }
 
     /**
@@ -44,17 +47,26 @@ public class LoginScreen extends javax.swing.JFrame {
         loginMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(36, 39, 43));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
 
+        loginConfirm.setFont(new java.awt.Font("Kohinoor Gujarati", 1, 18)); // NOI18N
         loginConfirm.setText("Login");
+        loginConfirm.setToolTipText("");
+        loginConfirm.setBorderPainted(false);
+        loginConfirm.setOpaque(true);
+        loginConfirm.setPreferredSize(new java.awt.Dimension(79, 50));
         loginConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginConfirmActionPerformed(evt);
             }
         });
 
+        idInputField.setBackground(new java.awt.Color(240, 240, 240));
+        idInputField.setFont(new java.awt.Font("Kohinoor Gujarati", 0, 18)); // NOI18N
         idInputField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        idInputField.setBorder(null);
         idInputField.setRequestFocusEnabled(false);
         idInputField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,7 +74,7 @@ public class LoginScreen extends javax.swing.JFrame {
             }
         });
 
-        loginMessage.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        loginMessage.setFont(new java.awt.Font("Kohinoor Gujarati", 1, 48)); // NOI18N
         loginMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         loginMessage.setText("Scan Student Card or Enter StudentID");
         loginMessage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -77,12 +89,12 @@ public class LoginScreen extends javax.swing.JFrame {
                         .addGap(174, 174, 174)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
+                        .addGap(300, 300, 300)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(idInputField)
                             .addComponent(loginConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(loginMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 222, Short.MAX_VALUE))))
-                .addGap(85, 85, 85))
+                .addGap(300, 300, 300))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,12 +102,12 @@ public class LoginScreen extends javax.swing.JFrame {
                 .addGap(80, 80, 80)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(loginMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(idInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loginMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(loginConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(idInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(loginConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();

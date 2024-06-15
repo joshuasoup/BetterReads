@@ -6,19 +6,18 @@ package betterreads;
 
 import java.util.ArrayList;
 
-
 /**
- 
- * 
- * @author menot
+ *
+ *
+ * @author Jaden Wickens, Joshua Souphanthong, Sam Marandi
  */
 public class BetterReads {
-//GoogleBooksAPI api = new GoogleBooksAPI();
-//        public ArrayList<Book> books = api.findBook("9786070705359");
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        new LoginScreen().setVisible(true);
 
         // TODO code application logic here
         UserReviews main = new UserReviews();
@@ -63,6 +62,5 @@ public class BetterReads {
 //        System.out.println(test);
 
     }
-    
 
 }

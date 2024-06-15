@@ -4,6 +4,8 @@
  */
 package betterreads;
 
+import betterreads.Book;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,6 +24,9 @@ public class SearchScreen extends javax.swing.JFrame {
     private BufferedImage betterReadsLogo;
     private BufferedImage nhsLogo;
     private final GoogleBooksAPI api = new GoogleBooksAPI();
+    ArrayList<Book> books;
+    private boolean isPopulatingComboBox = false;
+
 
     /**
      * Creates new form SearchScreen
@@ -34,7 +39,10 @@ public class SearchScreen extends javax.swing.JFrame {
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
         bookSelector.setEnabled(false);
+        bookSelector.setVisible(false);
         loadImage();
+        Color c = new Color(255,255,255);
+        getContentPane().setBackground(c);
     }
 
     /**
@@ -77,10 +85,12 @@ public class SearchScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension((int) (this.getWidth() * (3.0 / 4.0)), 100));
         setResizable(false);
 
+        searchConfirm.setFont(new java.awt.Font("Kohinoor Gujarati", 1, 18)); // NOI18N
         searchConfirm.setText("Search");
+        searchConfirm.setBorder(null);
+        searchConfirm.setOpaque(true);
         searchConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchConfirmActionPerformed(evt);
@@ -94,18 +104,23 @@ public class SearchScreen extends javax.swing.JFrame {
             }
         });
 
+        searchInput.setBackground(new java.awt.Color(240, 240, 240));
+        searchInput.setFont(new java.awt.Font("Kohinoor Gujarati", 0, 18)); // NOI18N
         searchInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        searchInput.setBorder(null);
+        searchInput.setOpaque(true);
         searchInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchInputActionPerformed(evt);
             }
         });
 
-        scanBookLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        scanBookLabel.setFont(new java.awt.Font("Kohinoor Gujarati", 1, 48)); // NOI18N
         scanBookLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         scanBookLabel.setText("Scan Book Barcode or Enter Book Title");
 
         bookSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        bookSelector.setBorder(null);
         bookSelector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bookSelectorActionPerformed(evt);
@@ -118,37 +133,31 @@ public class SearchScreen extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scanBookLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(searchInput)
-                .addGap(85, 85, 85))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addComponent(searchConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(95, 95, 95))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(100, 100, 100)
+                .addGap(300, 300, 300)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(logOut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(bookSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(100, 100, 100))))
+                    .addComponent(searchConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bookSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(searchInput))
+                .addGap(300, 300, 300))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logOut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(bookSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(73, Short.MAX_VALUE)
                 .addComponent(scanBookLabel)
-                .addGap(44, 44, 44)
-                .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(searchConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(bookSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(logOut)
-                .addGap(21, 21, 21))
+                .addGap(13, 13, 13))
         );
 
         pack();
@@ -187,18 +196,32 @@ public class SearchScreen extends javax.swing.JFrame {
 
     private void searchConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchConfirmActionPerformed
         String bookIdentifier = searchInput.getText().replaceAll(" ", "%20");
-        
-        ArrayList<Book> books = api.findBook(bookIdentifier);
+
+        books = api.findBook(bookIdentifier);
+        System.out.println(books.size());
         if (books.isEmpty()) {
             scanBookLabel.setText("No books found with the given ID. If issue persists, check network connection.");
+            bookSelector.setEnabled(false);
             return;
         }
+        if (books.size() == 1){
+            Book book = books.get(0);
+            BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
+            b.setVisible(true);
+            this.dispose();
+        }
+        isPopulatingComboBox = true;
+        bookSelector.removeAllItems();
+
+        // Add the names of the books to the JComboBox
+        for (Book book : books) {
+            bookSelector.addItem(book.getName());
+        }
+        isPopulatingComboBox = false;
+        // Enable the JComboBox
+        bookSelector.setVisible(true);
         bookSelector.setEnabled(true);
-//        
-//        Book book = books.get(0);
-//        BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
-//        b.setVisible(true);
-//        this.dispose();
+        scanBookLabel.setText("Choose book from menu");
     }//GEN-LAST:event_searchConfirmActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
@@ -216,7 +239,16 @@ public class SearchScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_searchInputActionPerformed
 
     private void bookSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookSelectorActionPerformed
-        // TODO add your handling code here:
+         if (!isPopulatingComboBox) { // Only perform action if not populating
+            int selectedIndex = bookSelector.getSelectedIndex();
+            // If a valid selection is made
+            if (selectedIndex >= 0) {
+                Book book = books.get(selectedIndex);
+                BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
+                b.setVisible(true);
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_bookSelectorActionPerformed
 
     /**
