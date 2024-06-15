@@ -15,7 +15,7 @@ public class TeacherControlScreen extends javax.swing.JFrame {
     ArrayList<Review> reviews;
 //    ArrayList<Review> reviews = new ArrayList<>();
     int numTotReviews;
-    UserReviews uReviews = new UserReviews();
+    UserReviews main = new UserReviews();
 
     /**
      * Creates new form TeacherControlScreen
@@ -24,7 +24,7 @@ public class TeacherControlScreen extends javax.swing.JFrame {
 //        reviews.add(new Review("user1", "I liked this book", "5"));
 //        reviews.add(new Review("user2", "It was an okay read", "3"));
 //        reviews.add(new Review("user3", "Did not enjoy it", "1"));
-        reviews = uReviews.getAllReviews();
+        reviews = main.getAllReviews();
         numTotReviews = reviews.size();
         System.out.println(reviews.size());
         initComponents();
@@ -131,7 +131,7 @@ public class TeacherControlScreen extends javax.swing.JFrame {
         try {
             int removedReview = Integer.parseInt(reviewSelector.getSelectedItem().toString());
             System.out.println(removedReview);
-            uReviews.deleteReview(removedReview);
+            main.deleteReview(removedReview);
             TeacherControlScreen t = new TeacherControlScreen();
             t.setVisible(true);
             this.dispose();

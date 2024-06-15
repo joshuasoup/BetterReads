@@ -178,17 +178,17 @@ public class AddReviewScreen extends javax.swing.JFrame {
     private void reviewConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewConfirmActionPerformed
         String reviewContent = reviewContentInput.getText();
         String reviewRating = starRatingSelector.getSelectedItem().toString();
-        UserReviews x = new UserReviews();
-        if (x.findBook(bookTitle)){
-            x.addReview(bookTitle, reviewContent, String.valueOf(userId), reviewRating);
+        UserReviews main = new UserReviews();
+        if (main.findBook(bookTitle)){
+            main.addReview(bookTitle, reviewContent, String.valueOf(userId), reviewRating);
         }
         else{
             Book book = new Book(bookTitle);
             ArrayList<Review> reviews = new ArrayList<>();
             reviews.add(new Review(reviewContent, String.valueOf(userId), reviewRating));
             book.setReviews(reviews);
-            x.addBook(book);
-            x.addReview(bookTitle, reviewContent, String.valueOf(userId), reviewRating);
+            main.addBook(book);
+            //main.addReview(bookTitle, reviewContent, String.valueOf(userId), reviewRating);
         }
         BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
         b.setVisible(true);

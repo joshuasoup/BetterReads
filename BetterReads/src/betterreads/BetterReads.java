@@ -23,5 +23,6 @@ public class BetterReads {
         UserReviews main = new UserReviews();
         
         main.deleteReview(1);
+        main.addReview("test", "good book","bob", "3");
     }
 }
