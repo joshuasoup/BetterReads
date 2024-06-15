@@ -25,7 +25,7 @@ public class SearchScreen extends javax.swing.JFrame {
     private BufferedImage nhsLogo;
     private final GoogleBooksAPI api = new GoogleBooksAPI();
     ArrayList<Book> books;
-    private boolean isPopulatingComboBox = false;
+    private boolean actualAcctionPerformed = false;
 
 
     /**
@@ -210,14 +210,14 @@ public class SearchScreen extends javax.swing.JFrame {
             b.setVisible(true);
             this.dispose();
         }
-        isPopulatingComboBox = true;
+        actualAcctionPerformed = true;
         bookSelector.removeAllItems();
 
         // Add the names of the books to the JComboBox
         for (Book book : books) {
             bookSelector.addItem(book.getName());
         }
-        isPopulatingComboBox = false;
+        actualAcctionPerformed = false;
         // Enable the JComboBox
         bookSelector.setVisible(true);
         bookSelector.setEnabled(true);
@@ -239,7 +239,7 @@ public class SearchScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_searchInputActionPerformed
 
     private void bookSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookSelectorActionPerformed
-         if (!isPopulatingComboBox) { // Only perform action if not populating
+         if (!actualAcctionPerformed) { // Only perform action if not populating
             int selectedIndex = bookSelector.getSelectedIndex();
             // If a valid selection is made
             if (selectedIndex >= 0) {
