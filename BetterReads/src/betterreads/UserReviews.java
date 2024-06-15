@@ -6,6 +6,7 @@ package betterreads;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,7 +22,6 @@ import java.util.logging.Logger;
  */
 public class UserReviews {
     
-    File users = new File("BetterReadsUsers");
     File reviews = new File("BetterReadsReviews.txt");
     File reviewsOnly = new File("BetterReadsReviewsOnly.txt");
     
@@ -100,7 +100,22 @@ public class UserReviews {
     }
     
     public ArrayList<Review> getAllReviews(){
-        return new ArrayList<Review>();
+        ArrayList<Review> reviews = new ArrayList<Review>();
+        
+        try {
+            Scanner s = new Scanner(reviewsOnly);
+            while (s.hasNext()){
+                String line = s.nextLine();
+                String[] parts;
+                parts = line.split("[\\-*]");
+                Review newReview = new Review(parts[0].trim().replace("\"", ""), parts[1].trim(), parts[2].trim());
+                reviews.add(newReview);
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("Hold up, wait a minute, something aint right");
+        }
+        
+        return reviews;
     }
     
     public void addBook(Book book){
@@ -140,26 +155,34 @@ public class UserReviews {
             System.out.println("Something went wrong");
         }
     }
-    public String findReviews(String name){
+    public ArrayList<Review> findReviews(String name){
         
+        ArrayList<Review> reviewsList = new ArrayList<Review>();
         try {
-            String print = "";
             Scanner s = new Scanner(reviews);
             String data = s.nextLine();
+            name = name.toLowerCase();
+            data = data.toLowerCase();
             while (!data.equals(name)){
                 data = s.nextLine();
+                data = data.toLowerCase();
             }
             
             while (s.hasNextLine()) {
+                
                 data = s.nextLine();
-                if (data.startsWith("\"")) {
-                    print += data + "\n";
-                } else {
+                    if (data.startsWith("\"")) {
+                        String[] parts;
+                        parts = data.split("[\\-*]");
+                        Review newReview = new Review(parts[0].trim().replace("\"", ""), parts[1].trim(), parts[2].trim());
+                        reviewsList.add(newReview);
+                    }
+                    else {
                 break; // Exit the loop if the line does not start with a quotation mark
                 }
             }
-            String cleanedPrint = print.toString().replaceAll("[\\r\\n]+$", "");
-            return cleanedPrint;
+            
+            return reviewsList;
         } catch (IOException ex) {
             System.out.println("Something went wrong");
         }

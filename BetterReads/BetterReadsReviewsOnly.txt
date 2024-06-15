@@ -1,5 +1,4 @@
 " review" - user*rating
-" review" - user*rating
 " this i greaet!" - 1*4
 " review" - user*rating
 " this i greaet!" - 1*4

@@ -30,7 +30,11 @@ public class BetterReads {
         //main.addBook(bookOne);
         //main.addReviewsToFile();
         //main.addReview("BookThree", "googoogaagaa", "user5", "4");
-        main.deleteReview(2);
+        //main.deleteReview(2);
+        ArrayList<Review> list = main.findReviews("BookThree");
+        for (Review r: list){
+            System.out.println(r.printReview());
+        }
         
 
 
