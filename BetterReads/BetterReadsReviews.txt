@@ -1,4 +1,2 @@
 One Million Digits of Pi
-" bd" - 34*1
-Pi: A Source Book
-" this book ass" - 34*1
+" this ass" - 34*1

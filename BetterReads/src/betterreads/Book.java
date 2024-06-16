@@ -65,7 +65,6 @@ public class Book {
         
         try{
             author = volumeInfo.getJSONArray("authors").getString(0);
-            System.out.println(author);
         }catch(Exception e){
             System.out.println(e);
             author = "";
@@ -74,7 +73,6 @@ public class Book {
         
         //volumeInfo JObject, description String, pageCount Int, categories JSONArray
         //averageRating int, imageLinks String, searchInfo JObject - textSnippet String
-        System.out.println(bookInfo());
     }
     
     public ArrayList<Review> getReviews() {

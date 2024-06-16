@@ -35,24 +35,24 @@ public class UserReviews {
             Scanner s = new Scanner(reviewsOnly);
             temp = File.createTempFile("temp-file-name", ".tmp");
         
-        BufferedReader br = new BufferedReader(new FileReader(reviews));
-        PrintWriter pw =  new PrintWriter(new FileWriter(temp));
-        PrintWriter pwTwo =  new PrintWriter(new FileWriter(reviewsOnly, true));
-        String line;
-        int lineCount = 0;
-        while ((line = br.readLine()) != null) {
-            pw.println(line);
-            if(line.equals(book)){
-                pw.println(newReview);
+            BufferedReader br = new BufferedReader(new FileReader(reviews));
+            PrintWriter pw =  new PrintWriter(new FileWriter(temp));
+            PrintWriter pwTwo =  new PrintWriter(new FileWriter(reviewsOnly, true));
+            String line;
+            int lineCount = 0;
+            while ((line = br.readLine()) != null){
+                pw.println(line);
+                if(line.equals(book)){
+                    pw.println(newReview);
+                }
+                lineCount++;
             }
-            lineCount++;
-        }
-        pwTwo.println(newReview);
-        pwTwo.close();
-        br.close();
-        pw.close();
-        reviews.delete();
-        temp.renameTo(reviews);
+            pwTwo.println(newReview);
+            pwTwo.close();
+            br.close();
+            pw.close();
+            reviews.delete();
+            temp.renameTo(reviews);
         } catch (IOException ex) {
             Logger.getLogger(UserReviews.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -135,12 +135,16 @@ public class UserReviews {
         
         try {
             PrintWriter pw = new PrintWriter(new FileWriter(reviews, true));
+            PrintWriter pw2 = new PrintWriter(new FileWriter(reviewsOnly, true));
             pw.println(book.print());
             for (Review reviews: book.getReviews()){
                 pw.println(reviews.printReview());
+                pw2.println(reviews.printReview());
             }
             pw.flush();
             pw.close();
+            pw2.flush();
+            pw2.close();
         } catch (IOException ex) {
             System.out.println("Something went wrong");
         }

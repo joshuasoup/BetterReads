@@ -16,7 +16,13 @@ public class BetterReads {
     /**
      * @param args the command line arguments
      */
+    
+//    public void addReview(String book, String review, String user, String rating){
+
+    
+    
     public static void main(String[] args) {
         new LoginScreen().setVisible(true);
+        UserReviews ur = new UserReviews();
     }
 }
