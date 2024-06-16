@@ -18,11 +18,5 @@ public class BetterReads {
      */
     public static void main(String[] args) {
         new LoginScreen().setVisible(true);
-
-        // TODO code application logic here
-        UserReviews main = new UserReviews();
-        
-//        main.deleteReview(1);
-        main.addReview("test", "good book","bob", "3");
     }
 }
