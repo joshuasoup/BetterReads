@@ -38,7 +38,7 @@ public class GoogleBooksAPI {
             
 
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         } 
         return books;
     }

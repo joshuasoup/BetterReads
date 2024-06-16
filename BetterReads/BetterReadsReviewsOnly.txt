@@ -1,2 +1,0 @@
-" this book was amazing" - 34*5
-" this book sucks ass" - 34*1 - book

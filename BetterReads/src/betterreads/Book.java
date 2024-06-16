@@ -21,7 +21,7 @@ public class Book {
     private String bookCover;
     private int studentRating;
     private int numOfRatings;
-    
+    private String author;
     
     
     public Book(JSONObject o){
@@ -35,7 +35,11 @@ public class Book {
             System.out.println(e);
         }
         
-        pageCount = volumeInfo.getInt("pageCount");
+        try{
+            pageCount = volumeInfo.getInt("pageCount");
+        } catch (Exception e){
+            pageCount = 0;
+        }
         
         try{
             onlineRating = volumeInfo.getInt("averageRating");
@@ -44,20 +48,41 @@ public class Book {
             onlineRating = 0;
         }
         
+        try{
+            JSONObject s = o.getJSONObject("searchInfo");
+            snippet = s.getString("textSnippet");
+        }catch(Exception e){
+            snippet = "";
+            System.out.println(e);
+        }
         
-        JSONObject s = o.getJSONObject("searchInfo");
-        snippet = s.getString("textSnippet");
+        try{
+            bookCover = volumeInfo.getJSONObject("imageLinks").getString("thumbnail");
+        } catch (Exception e){
+            System.out.println(e);
+            bookCover = "";
+        }
         
-        bookCover = volumeInfo.getJSONObject("imageLinks").getString("thumbnail");
+        try{
+            author = volumeInfo.getJSONArray("authors").getString(0);
+            System.out.println(author);
+        }catch(Exception e){
+            System.out.println(e);
+            author = "";
+        }
         
-        System.out.println(name + " | " + description + " | " + pageCount + " | " + onlineRating + " | " + snippet + " | " + bookCover);
         
         //volumeInfo JObject, description String, pageCount Int, categories JSONArray
         //averageRating int, imageLinks String, searchInfo JObject - textSnippet String
+        System.out.println(bookInfo());
     }
     
     public ArrayList<Review> getReviews() {
         return reviews;
+    }
+    
+    public String bookInfo(){
+        return((name + " | " + description + " | " + pageCount + " | " + onlineRating + " | " + snippet + " | " + bookCover));
     }
     
     public void setStudentRating(int totalRating){

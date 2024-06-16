@@ -198,7 +198,6 @@ public class SearchScreen extends javax.swing.JFrame {
         String bookIdentifier = searchInput.getText().replaceAll(" ", "%20");
 
         books = api.findBook(bookIdentifier);
-        System.out.println(books.size());
         if (books.isEmpty()) {
             scanBookLabel.setText("No books found with the given ID. If issue persists, check network connection.");
             bookSelector.setEnabled(false);

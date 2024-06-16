@@ -28,6 +28,7 @@ public class UserReviews {
     
     public void addReview(String book, String review, String user, String rating){
         String newReview = "\" " + review + "\" - " + user + "*" + rating + "-" + book;
+        System.out.println(newReview);
         
         File temp;
         try {
@@ -115,7 +116,6 @@ public class UserReviews {
             Scanner s = new Scanner(reviewsOnly);
             while (s.hasNext()){
                 String line = s.nextLine();
-                System.out.println(line);
                 String[] parts;
                 parts = line.split("[\\-*]");
                 
