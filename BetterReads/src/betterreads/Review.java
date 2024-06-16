@@ -13,7 +13,8 @@ public class Review {
     private String rating;
     private String user;
     private String review;
-
+    private String book;
+    
     public String getUser() {
         return user;
     }
@@ -27,6 +28,7 @@ public class Review {
         setReview(review);
         setRating(rating);
     }
+    
 
     public String getRating() {
         return rating;
@@ -47,5 +49,13 @@ public class Review {
     public String printReview() {
         String print = "\" " + getReview() + "\" - " + getUser() + "*" + getRating();
         return print;
+    }
+
+    public String getBook() {
+        return book;
+    }
+
+    public void setBook(String book) {
+        this.book = book;
     }
 }

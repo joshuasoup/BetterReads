@@ -19,10 +19,13 @@ public class Book {
     private int onlineRating;
     private String snippet;
     private String bookCover;
+    private int studentRating;
+    private int numOfRatings;
     
     
     
     public Book(JSONObject o){
+        UserReviews ur = new UserReviews();
         JSONObject volumeInfo = o.getJSONObject("volumeInfo");
         name = volumeInfo.getString("title");
         try{
@@ -55,6 +58,14 @@ public class Book {
     
     public ArrayList<Review> getReviews() {
         return reviews;
+    }
+    
+    public void setStudentRating(int totalRating){
+        studentRating = (int)(totalRating/numOfRatings);
+    }
+    
+    public int getStudentRating(){
+        return studentRating;
     }
 
     public void setReviews(ArrayList<Review> reviews) {

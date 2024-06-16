@@ -25,8 +25,9 @@ public class UserReviews {
     File reviews = new File("BetterReadsReviews.txt");
     File reviewsOnly = new File("BetterReadsReviewsOnly.txt");
     
+    
     public void addReview(String book, String review, String user, String rating){
-        String newReview = "\" " + review + "\" - " + user + "*" + rating;
+        String newReview = "\" " + review + "\" - " + user + "*" + rating + "-" + book;
         
         File temp;
         try {
@@ -55,6 +56,14 @@ public class UserReviews {
             Logger.getLogger(UserReviews.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void findRecommendations(){
+        ArrayList<Review> reviews = getAllReviews();
+        for(Review r: reviews){
+            System.out.println(r.getRating());
+        }
+    }
+    
     
     public void deleteReview(int count){
         File temp;
@@ -106,13 +115,17 @@ public class UserReviews {
             Scanner s = new Scanner(reviewsOnly);
             while (s.hasNext()){
                 String line = s.nextLine();
+                System.out.println(line);
                 String[] parts;
                 parts = line.split("[\\-*]");
+                
                 Review newReview = new Review(parts[0].trim().replace("\"", ""), parts[1].trim(), parts[2].trim());
                 reviews.add(newReview);
             }
         } catch (FileNotFoundException ex) {
             System.out.println("Hold up, wait a minute, something aint right");
+        } catch (Exception e){
+            System.out.println(e);
         }
         
         return reviews;
@@ -183,9 +196,9 @@ public class UserReviews {
             }
             
             return reviewsList;
-        } catch (IOException ex) {
-            System.out.println("Something went wrong");
-        }
+        } catch (Exception e) {
+            System.out.println("Something went wrong: " + e);
+        } 
         return null;
     }
     public boolean findBook(String name){
@@ -202,8 +215,8 @@ public class UserReviews {
             if (data.equals(name)){
                 return true;
             }
-        } catch (IOException ex) {
-            System.out.println("Something went wrong");
+        } catch (Exception e) {
+            System.out.println("Something went wrong: " + e);
         }
         return false;
     }

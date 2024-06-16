@@ -46,6 +46,7 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         if (curBookReview == null){
             curBookReview = new ArrayList<>();
         }
+        Urev.findRecommendations();
         this.userId = userId;
         this.book = book;
         initComponents();
@@ -234,6 +235,7 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
 
     private void addReviewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addReviewButtonActionPerformed
         AddReviewScreen s = new AddReviewScreen(userId, book);
+        
         s.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_addReviewButtonActionPerformed
