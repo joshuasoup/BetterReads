@@ -35,18 +35,17 @@ public class UserReviews {
             Scanner s = new Scanner(reviewsOnly);
             temp = File.createTempFile("temp-file-name", ".tmp");
         
-            BufferedReader br = new BufferedReader(new FileReader(reviews));
-            PrintWriter pw =  new PrintWriter(new FileWriter(temp));
-            PrintWriter pwTwo =  new PrintWriter(new FileWriter(reviewsOnly, true));
-            String line;
-            int lineCount = 0;
-            while ((line = br.readLine()) != null){
-                pw.println(line);
-                if(line.equals(book)){
-                    pw.println(newReview);
-                }
-                lineCount++;
+        BufferedReader br = new BufferedReader(new FileReader(reviews));
+        PrintWriter pw =  new PrintWriter(new FileWriter(temp));
+        PrintWriter pwTwo =  new PrintWriter(new FileWriter(reviewsOnly, true));
+        String line;
+        int lineCount = 0;
+        while ((line= br.readLine()) != null) {
+            pw.println(line);
+            if(line.toLowerCase().equals(book.toLowerCase())){
+                pw.println(newReview);
             }
+        }
             pwTwo.println(newReview);
             pwTwo.close();
             br.close();
@@ -54,7 +53,7 @@ public class UserReviews {
             reviews.delete();
             temp.renameTo(reviews);
         } catch (IOException ex) {
-            Logger.getLogger(UserReviews.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ji");
         }
     }
     
@@ -92,7 +91,7 @@ public class UserReviews {
             }
         }
         while ((lineTwo = brTwo.readLine()) != null) {
-            if(!(lineTwo.equals(deletedReview))){
+            if(!(lineTwo.toLowerCase().equals(deletedReview.toLowerCase()))){
                 pwTwo.println(lineTwo);
             }
         }
@@ -212,12 +211,10 @@ public class UserReviews {
             Scanner s = new Scanner(reviews);
             name = name.toLowerCase();
             String data = s.nextLine();
-            data = data.toLowerCase();
-            while (!data.equals(name)){
+            while (!data.toLowerCase().equals(name.toLowerCase())){
                 data = s.nextLine();
-                data = data.toLowerCase();
             }
-            if (data.equals(name)){
+            if (data.toLowerCase().equals(name.toLowerCase())){
                 return true;
             }
         } catch (Exception e) {
