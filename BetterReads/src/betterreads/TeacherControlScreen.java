@@ -8,14 +8,14 @@ import java.util.ArrayList;
 
 /**
  *
- * @author menot
+ * @author Jaden Wickens
  */
 public class TeacherControlScreen extends javax.swing.JFrame {
 
     ArrayList<Review> reviews;
 //    ArrayList<Review> reviews = new ArrayList<>();
     int numTotReviews;
-    UserReviews uReviews = new UserReviews();
+    UserReviews main = new UserReviews();
 
     /**
      * Creates new form TeacherControlScreen
@@ -24,7 +24,7 @@ public class TeacherControlScreen extends javax.swing.JFrame {
 //        reviews.add(new Review("user1", "I liked this book", "5"));
 //        reviews.add(new Review("user2", "It was an okay read", "3"));
 //        reviews.add(new Review("user3", "Did not enjoy it", "1"));
-        reviews = uReviews.getAllReviews();
+        reviews = main.getAllReviews();
         numTotReviews = reviews.size();
         System.out.println(reviews.size());
         initComponents();
@@ -130,7 +130,8 @@ public class TeacherControlScreen extends javax.swing.JFrame {
     private void deleteConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteConfirmActionPerformed
         try {
             int removedReview = Integer.parseInt(reviewSelector.getSelectedItem().toString());
-            uReviews.deleteReview(removedReview);
+            System.out.println(removedReview);
+            main.deleteReview(removedReview);
             TeacherControlScreen t = new TeacherControlScreen();
             t.setVisible(true);
             this.dispose();
@@ -154,7 +155,6 @@ public class TeacherControlScreen extends javax.swing.JFrame {
     }
     
     private String allReviewsText(){
-        String allReviews;
         StringBuilder temp = new StringBuilder();
         int count = 1;
         for (Review x:reviews){
@@ -163,9 +163,7 @@ public class TeacherControlScreen extends javax.swing.JFrame {
             temp.append(count + ". User: " + user + "  Rating: "+ review+"\n\n");
             count++;
         }
-        allReviews = temp.toString();
-        
-        return allReviews;
+        return temp.toString();
     }
 
     /**

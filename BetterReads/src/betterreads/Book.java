@@ -19,10 +19,13 @@ public class Book {
     private int onlineRating;
     private String snippet;
     private String bookCover;
-    
+    private int studentRating;
+    private int numOfRatings;
+    private String author;
     
     
     public Book(JSONObject o){
+        UserReviews ur = new UserReviews();
         JSONObject volumeInfo = o.getJSONObject("volumeInfo");
         name = volumeInfo.getString("title");
         try{
@@ -32,7 +35,11 @@ public class Book {
             System.out.println(e);
         }
         
-        pageCount = volumeInfo.getInt("pageCount");
+        try{
+            pageCount = volumeInfo.getInt("pageCount");
+        } catch (Exception e){
+            pageCount = 0;
+        }
         
         try{
             onlineRating = volumeInfo.getInt("averageRating");
@@ -41,13 +48,28 @@ public class Book {
             onlineRating = 0;
         }
         
+        try{
+            JSONObject s = o.getJSONObject("searchInfo");
+            snippet = s.getString("textSnippet");
+        }catch(Exception e){
+            snippet = "";
+            System.out.println(e);
+        }
         
-        JSONObject s = o.getJSONObject("searchInfo");
-        snippet = s.getString("textSnippet");
+        try{
+            bookCover = volumeInfo.getJSONObject("imageLinks").getString("thumbnail");
+        } catch (Exception e){
+            System.out.println(e);
+            bookCover = "";
+        }
         
-        bookCover = volumeInfo.getJSONObject("imageLinks").getString("thumbnail");
+        try{
+            author = volumeInfo.getJSONArray("authors").getString(0);
+        }catch(Exception e){
+            System.out.println(e);
+            author = "";
+        }
         
-        System.out.println(name + " | " + description + " | " + pageCount + " | " + onlineRating + " | " + snippet + " | " + bookCover);
         
         //volumeInfo JObject, description String, pageCount Int, categories JSONArray
         //averageRating int, imageLinks String, searchInfo JObject - textSnippet String
@@ -55,6 +77,18 @@ public class Book {
     
     public ArrayList<Review> getReviews() {
         return reviews;
+    }
+    
+    public String bookInfo(){
+        return((name + " | " + description + " | " + pageCount + " | " + onlineRating + " | " + snippet + " | " + bookCover));
+    }
+    
+    public void setStudentRating(int totalRating){
+        studentRating = (int)(totalRating/numOfRatings);
+    }
+    
+    public int getStudentRating(){
+        return studentRating;
     }
 
     public void setReviews(ArrayList<Review> reviews) {

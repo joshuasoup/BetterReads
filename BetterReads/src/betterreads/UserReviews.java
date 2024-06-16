@@ -25,8 +25,10 @@ public class UserReviews {
     File reviews = new File("BetterReadsReviews.txt");
     File reviewsOnly = new File("BetterReadsReviewsOnly.txt");
     
+    
     public void addReview(String book, String review, String user, String rating){
-        String newReview = "\" " + review + "\" - " + user + "*" + rating;
+        String newReview = "\" " + review + "\" - " + user + "*" + rating + "-" + book;
+        System.out.println(newReview);
         
         File temp;
         try {
@@ -43,18 +45,25 @@ public class UserReviews {
             if(line.toLowerCase().equals(book.toLowerCase())){
                 pw.println(newReview);
             }
-            lineCount++;
         }
-        pwTwo.println(newReview);
-        pwTwo.close();
-        br.close();
-        pw.close();
-        reviews.delete();
-        temp.renameTo(reviews);
+            pwTwo.println(newReview);
+            pwTwo.close();
+            br.close();
+            pw.close();
+            reviews.delete();
+            temp.renameTo(reviews);
         } catch (IOException ex) {
             System.out.println("ji");
         }
     }
+    
+    public void findRecommendations(){
+        ArrayList<Review> reviews = getAllReviews();
+        for(Review r: reviews){
+            System.out.println(r.getRating());
+        }
+    }
+    
     
     public void deleteReview(int count){
         File temp;
@@ -108,11 +117,14 @@ public class UserReviews {
                 String line = s.nextLine();
                 String[] parts;
                 parts = line.split("[\\-*]");
+                
                 Review newReview = new Review(parts[0].trim().replace("\"", ""), parts[1].trim(), parts[2].trim());
                 reviews.add(newReview);
             }
         } catch (FileNotFoundException ex) {
             System.out.println("Hold up, wait a minute, something aint right");
+        } catch (Exception e){
+            System.out.println(e);
         }
         
         return reviews;
@@ -122,14 +134,16 @@ public class UserReviews {
         
         try {
             PrintWriter pw = new PrintWriter(new FileWriter(reviews, true));
-            PrintWriter pwTwo = new PrintWriter(new FileWriter(reviewsOnly, true));
+            PrintWriter pw2 = new PrintWriter(new FileWriter(reviewsOnly, true));
             pw.println(book.print());
             for (Review reviews: book.getReviews()){
                 pw.println(reviews.printReview());
-                pwTwo.println(reviews.printReview());
+                pw2.println(reviews.printReview());
             }
             pw.flush();
             pw.close();
+            pw2.flush();
+            pw2.close();
         } catch (IOException ex) {
             System.out.println("Something went wrong");
         }
@@ -185,9 +199,9 @@ public class UserReviews {
             }
             
             return reviewsList;
-        } catch (IOException ex) {
-            System.out.println("Something went wrong");
-        }
+        } catch (Exception e) {
+            System.out.println("Something went wrong: " + e);
+        } 
         return null;
     }
     public boolean findBook(String name){
@@ -202,8 +216,8 @@ public class UserReviews {
             if (data.toLowerCase().equals(name.toLowerCase())){
                 return true;
             }
-        } catch (IOException ex) {
-            System.out.println("Something went wrong");
+        } catch (Exception e) {
+            System.out.println("Something went wrong: " + e);
         }
         return false;
     }

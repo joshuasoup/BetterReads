@@ -16,7 +16,13 @@ public class BetterReads {
     /**
      * @param args the command line arguments
      */
+    
+//    public void addReview(String book, String review, String user, String rating){
+
+    
+    
     public static void main(String[] args) {
+
         //new LoginScreen().setVisible(true);
 
         // TODO code application logic here
@@ -61,6 +67,9 @@ public class BetterReads {
 //        System.out.println(books.size());
 //        System.out.println(test);
 
-    }
+    
 
+        //new LoginScreen().setVisible(true);
+        UserReviews ur = new UserReviews();
+    }
 }
