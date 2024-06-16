@@ -38,9 +38,9 @@ public class UserReviews {
         PrintWriter pwTwo =  new PrintWriter(new FileWriter(reviewsOnly, true));
         String line;
         int lineCount = 0;
-        while ((line = br.readLine()) != null) {
+        while ((line= br.readLine()) != null) {
             pw.println(line);
-            if(line.equals(book)){
+            if(line.toLowerCase().equals(book.toLowerCase())){
                 pw.println(newReview);
             }
             lineCount++;
@@ -52,7 +52,7 @@ public class UserReviews {
         reviews.delete();
         temp.renameTo(reviews);
         } catch (IOException ex) {
-            Logger.getLogger(UserReviews.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ji");
         }
     }
     
@@ -82,7 +82,7 @@ public class UserReviews {
             }
         }
         while ((lineTwo = brTwo.readLine()) != null) {
-            if(!(lineTwo.equals(deletedReview))){
+            if(!(lineTwo.toLowerCase().equals(deletedReview.toLowerCase()))){
                 pwTwo.println(lineTwo);
             }
         }
@@ -122,9 +122,11 @@ public class UserReviews {
         
         try {
             PrintWriter pw = new PrintWriter(new FileWriter(reviews, true));
+            PrintWriter pwTwo = new PrintWriter(new FileWriter(reviewsOnly, true));
             pw.println(book.print());
             for (Review reviews: book.getReviews()){
                 pw.println(reviews.printReview());
+                pwTwo.println(reviews.printReview());
             }
             pw.flush();
             pw.close();
@@ -194,12 +196,10 @@ public class UserReviews {
             Scanner s = new Scanner(reviews);
             name = name.toLowerCase();
             String data = s.nextLine();
-            data = data.toLowerCase();
-            while (!data.equals(name)){
+            while (!data.toLowerCase().equals(name.toLowerCase())){
                 data = s.nextLine();
-                data = data.toLowerCase();
             }
-            if (data.equals(name)){
+            if (data.toLowerCase().equals(name.toLowerCase())){
                 return true;
             }
         } catch (IOException ex) {

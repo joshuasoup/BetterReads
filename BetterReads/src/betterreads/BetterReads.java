@@ -17,18 +17,18 @@ public class BetterReads {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new LoginScreen().setVisible(true);
+        //new LoginScreen().setVisible(true);
 
         // TODO code application logic here
         UserReviews main = new UserReviews();
-        User userOne = new User("1");
-        //Review reviewOne = new Review (userOne, "this i greaet!", "4");
-        ArrayList<Review> reviews = new ArrayList<Review>();
-       // reviews.add(reviewOne);
-        Book bookOne = new Book(reviews, "BookThree");
-        //main.addBook(bookOne);
-        //main.addReviewsToFile();
-        //main.addReview("BookThree", "googoogaagaa", "user5", "4");
+//        User userOne = new User("1");
+//        //Review reviewOne = new Review (userOne, "this i greaet!", "4");
+//        ArrayList<Review> reviews = new ArrayList<Review>();
+//       // reviews.add(reviewOne);
+//        Book bookOne = new Book(reviews, "BookThree");
+//        //main.addBook(bookOne);
+//        //main.addReviewsToFile();
+        main.addReview("BookThree", "googoogaagaa", "user5", "4");
         //main.deleteReview(2);
         ArrayList<Review> list = main.findReviews("BookThree");
         for (Review r: list){
