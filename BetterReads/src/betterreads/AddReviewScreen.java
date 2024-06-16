@@ -188,7 +188,6 @@ public class AddReviewScreen extends javax.swing.JFrame {
             reviews.add(new Review(reviewContent, String.valueOf(userId), reviewRating));
             book.setReviews(reviews);
             main.addBook(book);
-            //main.addReview(bookTitle, reviewContent, String.valueOf(userId), reviewRating);
         }
         BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
         b.setVisible(true);

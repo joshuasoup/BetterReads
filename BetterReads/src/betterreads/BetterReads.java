@@ -22,7 +22,7 @@ public class BetterReads {
         // TODO code application logic here
         UserReviews main = new UserReviews();
         
-        main.deleteReview(1);
+//        main.deleteReview(1);
         main.addReview("test", "good book","bob", "3");
     }
 }

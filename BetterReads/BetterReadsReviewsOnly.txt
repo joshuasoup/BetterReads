@@ -1,6 +1,1 @@
-" another review" - 340839117*4
-" how about a third" - 340839117*2
-" please work" - 340839117*1
-" wow" - 340839117*4
-" good book" - bob*3
 " good book" - bob*3
