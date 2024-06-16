@@ -24,5 +24,6 @@ public class BetterReads {
     public static void main(String[] args) {
         new LoginScreen().setVisible(true);
         UserReviews ur = new UserReviews();
+        ur.getAllReviews();
     }
 }

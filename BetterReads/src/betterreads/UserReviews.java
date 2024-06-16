@@ -122,6 +122,7 @@ public class UserReviews {
                 Review newReview = new Review(parts[0].trim().replace("\"", ""), parts[1].trim(), parts[2].trim());
                 reviews.add(newReview);
             }
+            System.out.println(reviews.toString());
         } catch (FileNotFoundException ex) {
             System.out.println("Hold up, wait a minute, something aint right");
         } catch (Exception e){

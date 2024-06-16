@@ -29,6 +29,17 @@ public class Review {
         setRating(rating);
     }
     
+    public Review(String review, String user, String rating, String book) {
+        setUser(user);
+        setReview(review);
+        setRating(rating);
+        this.book = book;
+    }
+    
+    @Override
+    public String toString(){
+        return (review + " | " + book);
+    }
 
     public String getRating() {
         return rating;
@@ -47,7 +58,7 @@ public class Review {
     }
 
     public String printReview() {
-        String print = "\" " + getReview() + "\" - " + getUser() + "*" + getRating();
+        String print = "\" " + getReview() + "\" - " + getUser() + "*" + getRating() + "-" + book ;
         return print;
     }
 
