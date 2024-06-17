@@ -25,6 +25,7 @@ public class LoginScreen extends javax.swing.JFrame {
      * Creates new form LoginScreen
      */
     public LoginScreen() {
+        //fill all variables and call all relevant methods
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
         loadImage();

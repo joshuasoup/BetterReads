@@ -19,8 +19,6 @@ import javax.swing.ImageIcon;
 public class BookDescriptionScreen extends javax.swing.JFrame {
 
     private final long userId;
-//    private int bookId;
-//    private String bookTitle;
     private Book book;
     GoogleBooksAPI api = new GoogleBooksAPI();
     private UserReviews Urev = new UserReviews();
@@ -32,8 +30,9 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
      * @param userId
      */
     public BookDescriptionScreen(long userId, Book book) {
+        //fill all variables and call all relevant methods
         curBookReview = Urev.findReviews(book.getName());
-        if (curBookReview == null){
+        if (curBookReview == null) {
             curBookReview = new ArrayList<>();
         }
         Urev.findRecommendations();
@@ -44,6 +43,7 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         loadImage(book.getBookCover());
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -192,13 +192,26 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Handles the action when the 'Back' button is clicked. Opens the
+     * SearchScreen for the specified userId. - Jaden
+     *
+     * @param evt The ActionEvent triggered when the button is clicked.
+     */
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        //Creates new search screen with current user, and disposes of the current frame.
         SearchScreen s = new SearchScreen(userId);
         s.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
 
+    /**
+     * Handles the action when the 'Log Out' button is clicked. Logs the user
+     * out by closing the current window and opening a new LoginScreen window. -
+     * Jaden
+     *
+     * @param evt The ActionEvent triggered when the button is clicked.
+     */
     private void LogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -207,41 +220,73 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         });
         this.dispose();
     }//GEN-LAST:event_LogOutActionPerformed
-
+    /**
+     * Handles the action when the 'Add Review' button is clicked. Opens the
+     * AddReviewScreen for the specified userId and book, and disposes the
+     * current window. - Jaden
+     *
+     * @param evt The ActionEvent triggered when the button is clicked.
+     */
     private void addReviewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addReviewButtonActionPerformed
         AddReviewScreen s = new AddReviewScreen(userId, book);
-        
         s.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_addReviewButtonActionPerformed
+    /**
+     * Calculates the average rating for the current book based on its reviews.
+     * - Jaden
+     *
+     * @return The average rating as a double value. Returns 0 if no valid
+     * ratings are found.
+     */
     private double getbookAvgRating() {
+        //Variable to hold numbers during calculations
         double ratingTemp = 0;
+        //for every review of the current book
         for (Review x : curBookReview) {
             try {
+                //add together all tatings
                 ratingTemp += Integer.parseInt(x.getRating());
             } catch (NumberFormatException e) {
                 System.out.println("Rating not integer value");
             }
         }
+        //return the total rating devided by the number of ratings (aka. the average)
         return ratingTemp / curBookReview.size();
     }
 
+    /**
+     * Generates a formatted text containing all reviews for the current book.
+     * Each review is appended with its rating in stars format. - Jaden
+     *
+     * @return A String containing formatted text listing all reviews for the
+     * current book, or null if there are no reviews.
+     */
     private String getCurrentBookReviews() {
+        // StringBuilder to build the formatted text
         StringBuilder bookReviewsText = new StringBuilder();
+        // Flag to determine whether to add a line separator between reviews
         boolean addLine = false;
-
+        // Iterate through each Review object in curBookReview
         for (Review x : curBookReview) {
+            // Add line separator if it's not the first review
             if (addLine) {
                 bookReviewsText.append("________\n\n");
             }
             addLine = true;
+            // Retrieve rating and review text from the Review object
             String rating = x.getRating();
             String review = x.getReview();
+            // Append formatted review information to the StringBuilder
             bookReviewsText.append(review + " - " + rating + "/5 Stars\n");
         }
+
+        // Check if there are any reviews in bookReviewsText
         if (bookReviewsText.length() > 0) {
+            // Return the formatted reviews as a String
             return bookReviewsText.toString();
         }
+        // Return null if there are no reviews
         return null;
     }
 
@@ -280,16 +325,24 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Loads and displays an image from the specified URL into jLabel4 to show
+     * the image of the book. - Jaden
+     *
+     * @param imageURL The URL of the image to load.
+     */
     private void loadImage(String imageURL) {
+        //Make sure the url is empty
         if (imageURL == null || imageURL.isEmpty()) {
             return;
         }
-
         try {
+            //Convert the URL to an image of the correct size.
             URL url = new URL(imageURL);
             BufferedImage img = ImageIO.read(url);
             Image dimg = img.getScaledInstance(jLabel4.getWidth(), jLabel4.getHeight(), Image.SCALE_SMOOTH);
             ImageIcon imageIcon = new ImageIcon(dimg);
+            //Put the image in the label
             jLabel4.setIcon(imageIcon);
         } catch (IOException e) {
             e.printStackTrace();

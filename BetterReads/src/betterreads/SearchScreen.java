@@ -150,17 +150,19 @@ public class SearchScreen extends javax.swing.JFrame {
 
         book1Info.setColumns(20);
         book1Info.setRows(5);
-        book1Info.setText("wtf\n");
+        book1Info.setText("Insufficient Reviews");
         book1Info.setFocusable(false);
         jScrollPane1.setViewportView(book1Info);
 
         book2Info.setColumns(20);
         book2Info.setRows(5);
+        book2Info.setText("Insufficient Reviews");
         book2Info.setFocusable(false);
         jScrollPane2.setViewportView(book2Info);
 
         book3Info.setColumns(20);
         book3Info.setRows(5);
+        book3Info.setText("Insufficient Reviews");
         book3Info.setFocusable(false);
         jScrollPane3.setViewportView(book3Info);
 
@@ -203,7 +205,7 @@ public class SearchScreen extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(437, Short.MAX_VALUE)
+                .addContainerGap(407, Short.MAX_VALUE)
                 .addComponent(scanBookLabel)
                 .addGap(18, 18, 18)
                 .addComponent(bookSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -343,7 +345,7 @@ public class SearchScreen extends javax.swing.JFrame {
     private void loadBookImagesAndInfo() {
         int length = Math.min(3, topBooks.size());
         for (int i = 0; i < length; i++) {
-            if (topBooks.get(i) != null) {
+            if (topBooks.get(i) != null && topBooks.get(i).getName() != null) {
                 loadImage(topBooks.get(i).getBookCover(), labels[i]);
                 textAreas[i].setText(topBooks.get(i).getName() + "\n\n" + topBooks.get(i).getAuthor() + "\n\n" + topBooks.get(i).getStudentRating() + "/5 stars out of " + topBooks.get(i).getNumOfRatings() + " ratings");
             } else {

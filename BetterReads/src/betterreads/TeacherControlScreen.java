@@ -20,6 +20,7 @@ public class TeacherControlScreen extends javax.swing.JFrame {
      * Creates new form TeacherControlScreen
      */
     public TeacherControlScreen() {
+        //fill all variables and call all relevant methods
         reviews = main.getAllReviews();
         numTotReviews = reviews.size();
         System.out.println(reviews.size());

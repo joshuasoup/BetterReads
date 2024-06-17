@@ -94,7 +94,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="437" max="32767" attributes="0"/>
+              <EmptySpace pref="407" max="32767" attributes="0"/>
               <Component id="scanBookLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="bookSelector" min="-2" pref="50" max="-2" attributes="0"/>
@@ -211,7 +211,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="wtf&#xa;"/>
+            <Property name="text" type="java.lang.String" value="Insufficient Reviews"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
@@ -228,6 +228,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="Insufficient Reviews"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
@@ -244,6 +245,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="Insufficient Reviews"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
