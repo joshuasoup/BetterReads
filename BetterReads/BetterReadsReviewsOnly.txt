@@ -1,3 +1,5 @@
-" ass" - 3411*1-Harry Potter and the Cursed Child
-" good" - 3411*3-Harry Potter and the Cursed Child
-" mid" - 3411*2-Harry Potter and the Cursed Child
+" horrible" - 34*1-Harry Potter and the Sorcerer's Stone
+" garbage" - 34*1-Harry Potter and the Cursed Child
+" Great" - 34*5-Harry Potter and the Sorcerer's Stone
+" off the charts" - 34*5-One Million Digits of Pi
+" Oustanding" - 34*5-The Irresistible Rise of Harry Potter

@@ -1,17 +1,9 @@
+Harry Potter and the Sorcerer's Stone
+" Great" - 34*5-Harry Potter and the Sorcerer's Stone
+" horrible" - 34*1-Harry Potter and the Sorcerer's Stone
 Harry Potter and the Cursed Child
-" mid" - 3411*2-Harry Potter and the Cursed Child
-" good" - 3411*3-Harry Potter and the Cursed Child
-" ass" - 3411*1-Harry Potter and the Cursed Child
-Life of pi
-" mid" - 3411*5-Harry Potter and the Cursed Child
-" good" - 3411*5-Harry Potter and the Cursed Child
-" ass" - 3411*1-Harry Potter and the Cursed Child
-" mid" - 3411*2-Harry Potter and the Cursed Child
-" good" - 3411*3-Harry Potter and the Cursed Child
-" ass" - 3411*1-Harry Potter and the Cursed Child
-Geronimo Stilton
-" mid" - 3411*5-Harry Potter and the Cursed Child
-To Kill A Mockingbird
-" mid" - 3411*4-Harry Potter and the Cursed Child
-Booty Stilton
-" mid" - 3411*5-Harry Potter and the Cursed Child
+" garbage" - 34*1-Harry Potter and the Cursed Child
+One Million Digits of Pi
+" off the charts" - 34*5-One Million Digits of Pi
+The Irresistible Rise of Harry Potter
+" Oustanding" - 34*5-The Irresistible Rise of Harry Potter

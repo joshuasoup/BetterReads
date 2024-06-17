@@ -69,9 +69,13 @@ public class UserReviews {
         ArrayList<Book> books = getBooks();
         for(Book b: books){
             ArrayList<Review> reviews = findReviews(b.getName());
+            if(reviews == null){
+                continue;
+            }
+            System.out.println(b.getName());
+            System.out.println(b.getBookCover());
             for(Review r: reviews){
                 b.setStudentRating(parseFloat(r.getRating()));
-                
             }
 //            System.out.println(b.toString());
             float rating = b.getStudentRating();
@@ -104,14 +108,14 @@ public class UserReviews {
     
     public ArrayList<Book> getBooks(){
         ArrayList<Book> bookShelf = new ArrayList<>();
+        GoogleBooksAPI api = new GoogleBooksAPI();
         String currLine;
         try{
             BufferedReader br = new BufferedReader(new FileReader(reviews));
             
             while((currLine = br.readLine()) != null){
                 if(currLine.charAt(0) != 34){
-                    Book b = new Book(currLine);
-                    bookShelf.add(b);
+                    bookShelf.add(api.findBook(currLine).get(0));
                 }
             }
             br.close();

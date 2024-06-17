@@ -38,11 +38,13 @@ public class SearchScreen extends javax.swing.JFrame {
         this.userId = userId;
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
+        UserReviews ur = new UserReviews();
         bookSelector.setEnabled(false);
         bookSelector.setVisible(false);
         loadImage();
         Color c = new Color(255,255,255);
         getContentPane().setBackground(c);
+        ArrayList<Book> b = ur.findRecommendations();
     }
 
     /**
@@ -195,7 +197,7 @@ public class SearchScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void searchConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchConfirmActionPerformed
-        String bookIdentifier = searchInput.getText().replaceAll(" ", "%20");
+        String bookIdentifier = searchInput.getText();
 
         books = api.findBook(bookIdentifier);
         if (books.isEmpty()) {

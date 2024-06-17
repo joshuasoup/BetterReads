@@ -14,7 +14,7 @@ public class GoogleBooksAPI {
     public ArrayList<Book> findBook (String searchTerm){
         ArrayList<Book> books = new ArrayList<>();
         try {
-            
+            searchTerm = searchTerm.replaceAll(" ", "%20");
             url = new URL("https://www.googleapis.com/books/v1/volumes?q=" + searchTerm);
             req = (HttpURLConnection) url.openConnection();
             req.setRequestMethod("GET");
