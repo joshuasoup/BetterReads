@@ -34,7 +34,6 @@ public class Book {
             description = volumeInfo.getString("description");
         } catch (Exception e) {
             description = "";
-            System.out.println(e);
         }
 
         try {
@@ -46,7 +45,6 @@ public class Book {
         try {
             onlineRating = volumeInfo.getInt("averageRating");
         } catch (Exception e) {
-            System.out.println(e);
             onlineRating = 0;
         }
 
@@ -55,20 +53,17 @@ public class Book {
             snippet = s.getString("textSnippet");
         } catch (Exception e) {
             snippet = "";
-            System.out.println(e);
         }
 
         try {
             bookCover = volumeInfo.getJSONObject("imageLinks").getString("thumbnail");
         } catch (Exception e) {
-            System.out.println(e);
             bookCover = "";
         }
 
         try {
             author = volumeInfo.getJSONArray("authors").getString(0);
         } catch (Exception e) {
-            System.out.println(e);
             author = "";
         }
 
@@ -157,5 +152,21 @@ public class Book {
     @Override
     public String toString(){
         return name;
+    }
+
+    public int getNumOfRatings() {
+        return numOfRatings;
+    }
+
+    public void setNumOfRatings(int numOfRatings) {
+        this.numOfRatings = numOfRatings;
+    }
+
+    public float getTotalRating() {
+        return totalRating;
+    }
+
+    public void setTotalRating(float totalRating) {
+        this.totalRating = totalRating;
     }
 }

@@ -48,11 +48,13 @@ public class SearchScreen extends javax.swing.JFrame {
         labels = new javax.swing.JLabel[]{book1Image, book2Image, book3Image};
         textAreas = new javax.swing.JTextArea[]{book1Info, book2Info, book3Info};
         setExtendedState(this.MAXIMIZED_BOTH);
+        UserReviews ur = new UserReviews();
         bookSelector.setEnabled(false);
         bookSelector.setVisible(false);
         loadImage();
         Color c = new Color(255, 255, 255);
         getContentPane().setBackground(c);
+        ArrayList<Book> b = ur.findRecommendations();
     }
 
     /**
@@ -182,16 +184,16 @@ public class SearchScreen extends javax.swing.JFrame {
                     .addComponent(logOut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(book1Image, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(book2Image, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(book3Image, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(68, 68, 68))
             .addGroup(layout.createSequentialGroup()
                 .addGap(124, 124, 124)
@@ -201,7 +203,7 @@ public class SearchScreen extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(463, 463, 463)
+                .addContainerGap(437, Short.MAX_VALUE)
                 .addComponent(scanBookLabel)
                 .addGap(18, 18, 18)
                 .addComponent(bookSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,14 +217,13 @@ public class SearchScreen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(book1Image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(book3Image, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                                .addComponent(book2Image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(book1Image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(book3Image, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                            .addComponent(book2Image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(10, 10, 10))
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logOut)
                 .addGap(18, 18, 18))
@@ -268,7 +269,7 @@ public class SearchScreen extends javax.swing.JFrame {
      * @param evt the ActionEvent object
      */
     private void searchConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchConfirmActionPerformed
-        String bookIdentifier = searchInput.getText().replaceAll(" ", "%20");
+        String bookIdentifier = searchInput.getText();
 
         books = api.findBook(bookIdentifier);
         if (books.isEmpty()) {
