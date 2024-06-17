@@ -19,8 +19,6 @@ import java.util.ArrayList;
  */
 public class AddReviewScreen extends javax.swing.JFrame {
 
-    
-
     private final long userId;
     private final Book book;
     private final String bookTitle;
@@ -33,6 +31,7 @@ public class AddReviewScreen extends javax.swing.JFrame {
      * Creates new form AddReviewScreen
      */
     public AddReviewScreen(long userId, Book book) {
+        //fill relevant variables and call all relevant methods
         this.userId = userId;
         this.book = book;
         bookTitle = book.getName();
@@ -41,30 +40,45 @@ public class AddReviewScreen extends javax.swing.JFrame {
         setExtendedState(this.MAXIMIZED_BOTH);
     }
 
+    /**
+     * Overrides the paint method to customize the drawing of star ratings.
+     * Draws yellow stars for the current rating and grey stars for the
+     * remaining. - Jaden
+     *
+     * @param g The Graphics object used for drawing.
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-
+        //calculate size and location of stars
         int starSize = 30;
-
         int x = 75;
         int y = this.getHeight() - (70 + starSize);
 
+        //Draw 5 stars
         for (int i = 0; i < 5; i++) {
+            //Draw yellow stars as many times as the current rating
             if (i < rating) {
                 g.drawImage(yellowStar.getScaledInstance(starSize, starSize, Image.SCALE_DEFAULT), x + i * (starSize + 5), y, null);
-            } else {
+            } //Draw the number of grey stars required to have a total number of 5 stars
+            else {
                 g.drawImage(greyStar.getScaledInstance(starSize, starSize, Image.SCALE_DEFAULT), x + i * (starSize + 5), y, null);
             }
         }
     }
 
+    /**
+     * Loads the yellow and grey star images from files and initializes the
+     * corresponding Image objects. Assumes that the image files
+     * "YellowStar.png" and "GreyStar.png" are located in the current working
+     * directory. Handles IOException by printing the stack trace. - Jaden
+     */
     private void loadImages() {
         try {
             yellowStar = ImageIO.read(new File("YellowStar.png"));
             greyStar = ImageIO.read(new File("GreyStar.png"));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error finding star images");
         }
     }
 
@@ -162,33 +176,65 @@ public class AddReviewScreen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Handles the action when the 'Cancel' button is clicked in the review
+     * screen. Opens the BookDescriptionScreen for the specified userId and
+     * book, and disposes the current window.
+     *
+     * @param evt The ActionEvent triggered when the button is clicked.
+     */
     private void reviewCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewCancelActionPerformed
+        //opens back up a new book description screen with the same parameters
         BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
         b.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_reviewCancelActionPerformed
-
+    /**
+     * Handles the action when an item is selected in the star rating selector
+     * JComboBox. Updates the 'rating' variable with the selected rating value
+     * and triggers a repaint to update the star display. - Jaden
+     *
+     * @param evt The ActionEvent triggered when an item is selected in the
+     * JComboBox.
+     */
     private void starRatingSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_starRatingSelectorActionPerformed
+        //Cast the event source to the combo box
         JComboBox<String> comboBox = (JComboBox<String>) evt.getSource();
+        //Set the rating variable to what was selected in the combo box
         rating = Integer.parseInt((String) comboBox.getSelectedItem());
+        //Update the display
         repaint();
     }//GEN-LAST:event_starRatingSelectorActionPerformed
 
+    /**
+     * Handles the action when the 'Confirm' button is clicked in the review
+     * screen. Retrieves review content and rating from input fields, adds the
+     * review to the UserReviews system, and navigates back to the
+     * BookDescriptionScreen. - Jaden
+     *
+     * @param evt The ActionEvent triggered when the 'Confirm' button is
+     * clicked.
+     */
     private void reviewConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewConfirmActionPerformed
+        //Get content and rating from user input
         String reviewContent = reviewContentInput.getText();
         String reviewRating = starRatingSelector.getSelectedItem().toString();
         UserReviews main = new UserReviews();
-        if (main.findBook(bookTitle)){
+        //if the book is already present in the file
+        if (main.findBook(bookTitle)) {
+            //add the review
             main.addReview(bookTitle, reviewContent, String.valueOf(userId), reviewRating);
         }
-        else{
+        //if the book is not present
+        else {
+            //add a new book with its review
             Book book = new Book(bookTitle);
             ArrayList<Review> reviews = new ArrayList<>();
             reviews.add(new Review(reviewContent, String.valueOf(userId), reviewRating, bookTitle));
             book.setReviews(reviews);
             main.addBook(book);
         }
+        //return to book discription screen
         BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
         b.setVisible(true);
         this.dispose();
@@ -229,6 +275,7 @@ public class AddReviewScreen extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public static GoogleBooksAPI api = new GoogleBooksAPI();
             public static ArrayList<Book> books = api.findBook("9786070705359");
+
             public void run() {
                 new AddReviewScreen(0, books.get(0)).setVisible(true);
             }

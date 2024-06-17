@@ -42,6 +42,7 @@ public class SearchScreen extends javax.swing.JFrame {
      * to this screen
      */
     public SearchScreen(long userId) {
+        //fill relevant variables and call all relevant methods
         this.userId = userId;
         topBooks = Urev.findRecommendations();
         initComponents();

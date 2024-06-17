@@ -25,7 +25,7 @@ public class LoginScreen extends javax.swing.JFrame {
      * Creates new form LoginScreen
      */
     public LoginScreen() {
-        //fill all variables and call all relevant methods
+        //fill relevant variables and call all relevant methods
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
         loadImage();
@@ -127,17 +127,21 @@ public class LoginScreen extends javax.swing.JFrame {
      */
     private void loginConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginConfirmActionPerformed
         try {
+            // parse user id input to a long (number sill be too large
             Long userId = Long.parseLong(idInputField.getText());
-            if (userId == 1234) {
+            //if the input is the teacher login, open the teacher control screen
+            if (userId == TEACHERLOGIN) {
                 TeacherControlScreen t = new TeacherControlScreen();
                 t.setVisible(true);
                 this.dispose();
             } else {
+                //if ont open the search screen with the entered user
                 SearchScreen s = new SearchScreen(userId);
                 s.setVisible(true);
                 this.dispose();
             }
         } catch (NumberFormatException e) {
+            //if rhe entered text is not a number, instruct user to try again
             loginMessage.setText("Please enter valid ID");
             idInputField.setText("");
             idInputField.requestFocusInWindow();
@@ -174,6 +178,7 @@ public class LoginScreen extends javax.swing.JFrame {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        //calculate image size
         int size = Math.max(this.getWidth(), this.getHeight()) / 4;
         if (betterReadsLogo != null) {
             // Draw the Better Reads logo at the top-left corner

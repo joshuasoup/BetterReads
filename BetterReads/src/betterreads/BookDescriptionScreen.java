@@ -30,7 +30,7 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
      * @param userId
      */
     public BookDescriptionScreen(long userId, Book book) {
-        //fill all variables and call all relevant methods
+        //fill relevant variables and call all relevant methods
         curBookReview = Urev.findReviews(book.getName());
         if (curBookReview == null) {
             curBookReview = new ArrayList<>();
