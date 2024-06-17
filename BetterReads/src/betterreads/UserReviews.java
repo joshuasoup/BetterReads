@@ -72,8 +72,6 @@ public class UserReviews {
             if(reviews == null){
                 continue;
             }
-            System.out.println(b.getName());
-            System.out.println(b.getBookCover());
             for(Review r: reviews){
                 b.setStudentRating(parseFloat(r.getRating()));
             }
@@ -98,11 +96,6 @@ public class UserReviews {
             }
             
         }
-        for(Book bd: recommendedBooks){
-            System.out.println(bd.toString());
-        }
-        
-        
         return recommendedBooks;
     }
     
