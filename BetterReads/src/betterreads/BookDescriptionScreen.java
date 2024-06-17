@@ -100,6 +100,7 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jTextArea1.setText(book.getDescription());
+        jTextArea1.setWrapStyleWord(true);
         jTextArea1.setFocusable(false);
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -114,6 +115,7 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         studentReviewsDisplay.setLineWrap(true);
         studentReviewsDisplay.setRows(5);
         studentReviewsDisplay.setText(getCurrentBookReviews());
+        studentReviewsDisplay.setWrapStyleWord(true);
         studentReviewsDisplay.setFocusable(false);
         jScrollPane2.setViewportView(studentReviewsDisplay);
 

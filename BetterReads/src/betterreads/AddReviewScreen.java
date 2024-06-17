@@ -94,9 +94,10 @@ public class AddReviewScreen extends javax.swing.JFrame {
         reviewCancel = new javax.swing.JButton();
         reviewConfirm = new javax.swing.JButton();
         bookTitleLabel = new javax.swing.JLabel();
-        reviewContentInput = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         starRatingSelector = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        reviewContentInput = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -118,13 +119,6 @@ public class AddReviewScreen extends javax.swing.JFrame {
         bookTitleLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         bookTitleLabel.setText(bookTitle);
 
-        reviewContentInput.setText("Write Review Here");
-        reviewContentInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reviewContentInputActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Rating out of 5");
 
         starRatingSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
@@ -133,6 +127,14 @@ public class AddReviewScreen extends javax.swing.JFrame {
                 starRatingSelectorActionPerformed(evt);
             }
         });
+
+        reviewContentInput.setColumns(20);
+        reviewContentInput.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        reviewContentInput.setLineWrap(true);
+        reviewContentInput.setRows(5);
+        reviewContentInput.setText("Write Review Here");
+        reviewContentInput.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(reviewContentInput);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,7 +146,6 @@ public class AddReviewScreen extends javax.swing.JFrame {
                     .addComponent(bookTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(reviewContentInput)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(reviewCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(62, 62, 62)
@@ -154,7 +155,10 @@ public class AddReviewScreen extends javax.swing.JFrame {
                                 .addGap(45, 45, 45)
                                 .addComponent(starRatingSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(67, 67, 67)))
-                        .addGap(63, 63, 63))))
+                        .addGap(63, 63, 63))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(45, 45, 45))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,8 +166,8 @@ public class AddReviewScreen extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(bookTitleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(reviewContentInput, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(starRatingSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -240,10 +244,6 @@ public class AddReviewScreen extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_reviewConfirmActionPerformed
 
-    private void reviewContentInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewContentInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_reviewContentInputActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -285,9 +285,10 @@ public class AddReviewScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bookTitleLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton reviewCancel;
     private javax.swing.JButton reviewConfirm;
-    private javax.swing.JTextField reviewContentInput;
+    private javax.swing.JTextArea reviewContentInput;
     private javax.swing.JComboBox<String> starRatingSelector;
     // End of variables declaration//GEN-END:variables
 }

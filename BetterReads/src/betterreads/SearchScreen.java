@@ -35,8 +35,7 @@ public class SearchScreen extends javax.swing.JFrame {
     private UserReviews Urev = new UserReviews();
 
     /**
-     * Creates new form SearchScreen
-     * - Jaden
+     * Creates new form SearchScreen - Jaden
      *
      * @param userId allows the inputted userId on the login screen to be sent
      * to this screen
@@ -150,20 +149,26 @@ public class SearchScreen extends javax.swing.JFrame {
         });
 
         book1Info.setColumns(20);
+        book1Info.setLineWrap(true);
         book1Info.setRows(5);
         book1Info.setText("Insufficient Reviews");
+        book1Info.setWrapStyleWord(true);
         book1Info.setFocusable(false);
         jScrollPane1.setViewportView(book1Info);
 
         book2Info.setColumns(20);
+        book2Info.setLineWrap(true);
         book2Info.setRows(5);
         book2Info.setText("Insufficient Reviews");
+        book2Info.setWrapStyleWord(true);
         book2Info.setFocusable(false);
         jScrollPane2.setViewportView(book2Info);
 
         book3Info.setColumns(20);
+        book3Info.setLineWrap(true);
         book3Info.setRows(5);
         book3Info.setText("Insufficient Reviews");
+        book3Info.setWrapStyleWord(true);
         book3Info.setFocusable(false);
         jScrollPane3.setViewportView(book3Info);
 
@@ -234,8 +239,7 @@ public class SearchScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Draws the BetterReads and NHS logos.
-     * - Jaden
+     * Draws the BetterReads and NHS logos. - Jaden
      *
      * @param g the Graphics object
      */
@@ -264,8 +268,7 @@ public class SearchScreen extends javax.swing.JFrame {
      * Handles the search button action event. Searches for books using the
      * input from the search field and displays the results. If there is more
      * than one book, open a combo box to allow the user to choose the correct
-     * book.
-     * - Jaden
+     * book. - Jaden
      *
      * @param evt the ActionEvent object
      */
@@ -277,6 +280,8 @@ public class SearchScreen extends javax.swing.JFrame {
         if (books.isEmpty()) {
             //If there are no books prompt user to try again
             scanBookLabel.setText("No books found with the given ID. If issue persists, check network connection.");
+            //lower font size to fit entire message on screen
+            scanBookLabel.setFont(new java.awt.Font("Kohinoor Gujarati", java.awt.Font.PLAIN, 36));
             bookSelector.setEnabled(false);
             return;
         }
@@ -306,8 +311,7 @@ public class SearchScreen extends javax.swing.JFrame {
 
     /**
      * Logs out user when log out button is pressed. Essentially restarts
-     * program
-     * - Jaden
+     * program - Jaden
      *
      * @param evt the ActionEvent object
      */
@@ -325,8 +329,8 @@ public class SearchScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_searchInputActionPerformed
     /**
      * Handles the book selector combo box action event. Allows users to pick
-     * the book then want, then openBookDescriptionScreen with that book.
-     * - Jaden
+     * the book then want, then openBookDescriptionScreen with that book. -
+     * Jaden
      *
      * @param evt the ActionEvent object
      */
@@ -347,8 +351,7 @@ public class SearchScreen extends javax.swing.JFrame {
     /**
      * Loads images and information for the top recommended books. Retrieves
      * book covers, book names, authors, and ratings and displays them. Displays
-     * up to three books on the SearchScreen.
-     * - Jaden
+     * up to three books on the SearchScreen. - Jaden
      */
     private void loadBookImagesAndInfo() {
         //Find the number of books the will be diplayed. This number is 3, unless there is less than 3 books with ratings.
@@ -369,8 +372,7 @@ public class SearchScreen extends javax.swing.JFrame {
 
     /**
      * Loads the Better Reads and NHS logos from local files. Displays these
-     * logos on the SearchScreen.
-     * - Jaden
+     * logos on the SearchScreen. - Jaden
      */
     private void loadImage() {
         try {
@@ -383,8 +385,7 @@ public class SearchScreen extends javax.swing.JFrame {
 
     /**
      * Loads an image from a specified URL and sets it to a JLabel. Resizes the
-     * image to fit the label dimensions using Image.SCALE_SMOOTH.
-     * - Jaden
+     * image to fit the label dimensions using Image.SCALE_SMOOTH. - Jaden
      *
      * @param imageURL the URL of the image to load
      * @param label the JLabel where the loaded image will be displayed
