@@ -50,6 +50,7 @@ public class UserReviews {
             pwTwo.close();
             br.close();
             pw.close();
+            s.close();
             reviews.delete();
             temp.renameTo(reviews);
         } catch (IOException ex) {
@@ -122,6 +123,7 @@ public class UserReviews {
                 reviews.add(newReview);
             }
             System.out.println(reviews.toString());
+            s.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Hold up, wait a minute, something aint right");
         } catch (Exception e){
@@ -150,28 +152,29 @@ public class UserReviews {
         }
         
     }
-    public void addReviewsToFile(){
-            String print = "";
-            PrintWriter pw;
-        try {
-            pw = new PrintWriter(new FileWriter(reviewsOnly, true));
-        
-            Scanner s = new Scanner(reviews);
-            String data = s.nextLine();
-            while (s.hasNextLine()) {
-                data = s.nextLine();
-                if (data.startsWith("\"")) {
-                    print += data + "\n";
-                }
-            }
-            String cleanedPrint = print.toString().replaceAll("[\\r\\n]+$", "");
-            pw.print(cleanedPrint);
-            pw.flush();
-            pw.close();
-        } catch (IOException ex) {
-            System.out.println("Something went wrong");
-        }
-    }
+//    public void addReviewsToFile(){
+//            String print = "";
+//            PrintWriter pw;
+//        try {
+//            pw = new PrintWriter(new FileWriter(reviewsOnly, true));
+//        
+//            Scanner s = new Scanner(reviews);
+//            String data = s.nextLine();
+//            while (s.hasNextLine()) {
+//                data = s.nextLine();
+//                if (data.startsWith("\"")) {
+//                    print += data + "\n";
+//                }
+//            }
+//            String cleanedPrint = print.toString().replaceAll("[\\r\\n]+$", "");
+//            pw.print(cleanedPrint);
+//            pw.flush();
+//            s.close();
+//            pw.close();
+//        } catch (IOException ex) {
+//            System.out.println("Something went wrong");
+//        }
+//    }
     public ArrayList<Review> findReviews(String name){
         
         ArrayList<Review> reviewsList = new ArrayList<Review>();
@@ -198,6 +201,7 @@ public class UserReviews {
                 break; // Exit the loop if the line does not start with a quotation mark
                 }
             }
+            s.close();
             
             return reviewsList;
         } catch (Exception e) {
@@ -217,6 +221,7 @@ public class UserReviews {
             if (data.toLowerCase().equals(name.toLowerCase())){
                 return true;
             }
+            s.close();
         } catch (Exception e) {
             System.out.println("Something went wrong: " + e);
         }

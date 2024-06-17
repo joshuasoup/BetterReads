@@ -7,11 +7,14 @@ package betterreads;
 import betterreads.Book;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -24,9 +27,11 @@ public class SearchScreen extends javax.swing.JFrame {
     private BufferedImage betterReadsLogo;
     private BufferedImage nhsLogo;
     private final GoogleBooksAPI api = new GoogleBooksAPI();
-    ArrayList<Book> books;
+    private ArrayList<Book> books;
     private boolean actualAcctionPerformed = false;
-
+    private ArrayList<Book> topBooks;
+    private javax.swing.JLabel[] labels;
+    private javax.swing.JTextArea[] textAreas;
 
     /**
      * Creates new form SearchScreen
@@ -36,12 +41,15 @@ public class SearchScreen extends javax.swing.JFrame {
      */
     public SearchScreen(long userId) {
         this.userId = userId;
+        topBooks = new ArrayList<>();
         initComponents();
+        labels = new javax.swing.JLabel[]{book1Image, book2Image, book3Image};
+        textAreas = new javax.swing.JTextArea[]{book1Info, book2Info, book3Info};
         setExtendedState(this.MAXIMIZED_BOTH);
         bookSelector.setEnabled(false);
         bookSelector.setVisible(false);
         loadImage();
-        Color c = new Color(255,255,255);
+        Color c = new Color(255, 255, 255);
         getContentPane().setBackground(c);
     }
 
@@ -62,6 +70,15 @@ public class SearchScreen extends javax.swing.JFrame {
         searchInput = new javax.swing.JTextField();
         scanBookLabel = new javax.swing.JLabel();
         bookSelector = new javax.swing.JComboBox<>();
+        book1Image = new javax.swing.JLabel();
+        book2Image = new javax.swing.JLabel();
+        book3Image = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        book1Info = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        book2Info = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        book3Info = new javax.swing.JTextArea();
 
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -127,6 +144,18 @@ public class SearchScreen extends javax.swing.JFrame {
             }
         });
 
+        book1Info.setColumns(20);
+        book1Info.setRows(5);
+        jScrollPane1.setViewportView(book1Info);
+
+        book2Info.setColumns(20);
+        book2Info.setRows(5);
+        jScrollPane2.setViewportView(book2Info);
+
+        book3Info.setColumns(20);
+        book3Info.setRows(5);
+        jScrollPane3.setViewportView(book3Info);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,14 +169,27 @@ public class SearchScreen extends javax.swing.JFrame {
                     .addComponent(searchInput))
                 .addGap(300, 300, 300))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logOut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addGap(68, 68, 68)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(logOut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(book1Image, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(book2Image, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(book3Image, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
+                .addGap(68, 68, 68))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(73, Short.MAX_VALUE)
+                .addGap(463, 463, 463)
                 .addComponent(scanBookLabel)
                 .addGap(18, 18, 18)
                 .addComponent(bookSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,35 +197,38 @@ public class SearchScreen extends javax.swing.JFrame {
                 .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(book1Image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(book3Image, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                .addComponent(book2Image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1))
+                        .addGap(10, 10, 10))
+                    .addComponent(jScrollPane2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logOut)
-                .addGap(13, 13, 13))
+                .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loadImage() {
-        try {
-            betterReadsLogo = ImageIO.read(new File("Better Reads Logo (1).png"));
-            nhsLogo = ImageIO.read(new File("nhslogo.png"));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        int size = Math.max(this.getWidth(), this.getHeight()) / 4;
+        int imageSize = Math.max(this.getWidth(), this.getHeight()) / 4;
         if (betterReadsLogo != null) {
             // Draw the Better Reads logo at the top-left corner
-            g.drawImage(betterReadsLogo, 0, 0, size, size, null);
+            g.drawImage(betterReadsLogo, 0, 0, imageSize, imageSize, null);
         }
         if (nhsLogo != null) {
             // Draw the NHS logo at the top-right corner
-            int x = this.getWidth() - size;
-            g.drawImage(nhsLogo, x, 0, size, size, null);
+            int x = this.getWidth() - imageSize;
+            g.drawImage(nhsLogo, x, 0, imageSize, imageSize, null);
         }
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -203,7 +248,7 @@ public class SearchScreen extends javax.swing.JFrame {
             bookSelector.setEnabled(false);
             return;
         }
-        if (books.size() == 1){
+        if (books.size() == 1) {
             Book book = books.get(0);
             BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
             b.setVisible(true);
@@ -238,7 +283,7 @@ public class SearchScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_searchInputActionPerformed
 
     private void bookSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookSelectorActionPerformed
-         if (!actualAcctionPerformed) { // Only perform action if not populating
+        if (!actualAcctionPerformed) { // Only perform action if not populating
             int selectedIndex = bookSelector.getSelectedIndex();
             // If a valid selection is made
             if (selectedIndex >= 0) {
@@ -249,6 +294,44 @@ public class SearchScreen extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_bookSelectorActionPerformed
+
+    private void loadBookImagesAndInfo() {
+        int length = Math.min(3, topBooks.size());
+        for (int i = 0; i < length; i++) {
+            if (topBooks.get(i) != null) {
+                loadImage(topBooks.get(i).getBookCover(), labels[i]);
+                textAreas[i].setText(topBooks.get(i).getName() + "\n\n" + topBooks.get(i).getAuthor() + "\n\n" + topBooks.get(i).getStudentRating() + "/5 stars");
+            } else {
+                System.out.println("Book at index " + i + " is null");
+            }
+            
+        }
+    }
+
+    private void loadImage() {
+        try {
+            betterReadsLogo = ImageIO.read(new File("Better Reads Logo (1).png"));
+            nhsLogo = ImageIO.read(new File("nhslogo.png"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void loadImage(String imageURL, javax.swing.JLabel label) {
+        if (imageURL == null || imageURL.isEmpty()) {
+            return;
+        }
+
+        try {
+            URL url = new URL(imageURL);
+            BufferedImage img = ImageIO.read(url);
+            Image dimg = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+            ImageIcon imageIcon = new ImageIcon(dimg);
+            label.setIcon(imageIcon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -286,9 +369,18 @@ public class SearchScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel book1Image;
+    private javax.swing.JTextArea book1Info;
+    private javax.swing.JLabel book2Image;
+    private javax.swing.JTextArea book2Info;
+    private javax.swing.JLabel book3Image;
+    private javax.swing.JTextArea book3Info;
     private javax.swing.JComboBox<String> bookSelector;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton logOut;
     private javax.swing.JLabel scanBookLabel;
