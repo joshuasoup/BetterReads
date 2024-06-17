@@ -75,9 +75,7 @@ public class UserReviews {
             for(Review r: reviews){
                 b.setStudentRating(parseFloat(r.getRating()));
             }
-//            System.out.println(b.toString());
             float rating = b.getStudentRating();
-//            System.out.println(rating);
             for(int i = numOfRecommendedBooks - 1; i >= 0; i--){
                 if (rating > recommendedBooks.get(i).getStudentRating() && i == 0){
                     recommendedBooks.addFirst(b);

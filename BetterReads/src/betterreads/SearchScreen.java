@@ -270,31 +270,37 @@ public class SearchScreen extends javax.swing.JFrame {
      * @param evt the ActionEvent object
      */
     private void searchConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchConfirmActionPerformed
+        //get search value from user
         String bookIdentifier = searchInput.getText();
-
+        //get the arraylist of possible books based on the users input
         books = api.findBook(bookIdentifier);
         if (books.isEmpty()) {
+            //If there are no books prompt user to try again
             scanBookLabel.setText("No books found with the given ID. If issue persists, check network connection.");
             bookSelector.setEnabled(false);
             return;
         }
         if (books.size() == 1) {
+            //if there is one book, open the book discription screen for that book
             Book book = books.get(0);
             BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
             b.setVisible(true);
             this.dispose();
         }
+        //create condition that bookSelectorActionPerformed() wont be triggered by updating the contents of the book selector
         actualAcctionPerformed = true;
         bookSelector.removeAllItems();
 
-        // Add the names of the books to the JComboBox
+        // Add the names of the books to the selector
         for (Book book : books) {
             bookSelector.addItem(book.getName());
         }
+        //allow for bookSelectorActionPerformed() to be triggered
         actualAcctionPerformed = false;
         // Enable the JComboBox
         bookSelector.setVisible(true);
         bookSelector.setEnabled(true);
+        //Instruct uer to choose a book
         scanBookLabel.setText("Choose book from menu");
     }//GEN-LAST:event_searchConfirmActionPerformed
 
@@ -306,7 +312,6 @@ public class SearchScreen extends javax.swing.JFrame {
      * @param evt the ActionEvent object
      */
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
-
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LoginScreen().setVisible(true);
@@ -326,10 +331,12 @@ public class SearchScreen extends javax.swing.JFrame {
      * @param evt the ActionEvent object
      */
     private void bookSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookSelectorActionPerformed
-        if (!actualAcctionPerformed) { // Only perform action if not populating
+        //Only perform actions when the user chooses a book, not when the slector is populated
+        if (!actualAcctionPerformed) {
             int selectedIndex = bookSelector.getSelectedIndex();
             // If a valid selection is made
             if (selectedIndex >= 0) {
+                //call the book discription scene with that book
                 Book book = books.get(selectedIndex);
                 BookDescriptionScreen b = new BookDescriptionScreen(userId, book);
                 b.setVisible(true);
@@ -344,12 +351,17 @@ public class SearchScreen extends javax.swing.JFrame {
      * - Jaden
      */
     private void loadBookImagesAndInfo() {
+        //Find the number of books the will be diplayed. This number is 3, unless there is less than 3 books with ratings.
         int length = Math.min(3, topBooks.size());
         for (int i = 0; i < length; i++) {
+            //if there is actually a book in this location
             if (topBooks.get(i) != null && topBooks.get(i).getName() != null) {
+                //call the load image function with the image url and the correct label
                 loadImage(topBooks.get(i).getBookCover(), labels[i]);
+                //update the text area with the info of the book
                 textAreas[i].setText(topBooks.get(i).getName() + "\n\n" + topBooks.get(i).getAuthor() + "\n\n" + topBooks.get(i).getStudentRating() + "/5 stars out of " + topBooks.get(i).getNumOfRatings() + " ratings");
             } else {
+                //if there is an empty slot print to console
                 System.out.println("Book at index " + i + " is null");
             }
         }
@@ -378,15 +390,18 @@ public class SearchScreen extends javax.swing.JFrame {
      * @param label the JLabel where the loaded image will be displayed
      */
     private void loadImage(String imageURL, javax.swing.JLabel label) {
+        //Make sure the url is not empty
         if (imageURL == null || imageURL.isEmpty()) {
             return;
         }
 
         try {
+            //Convert the URL to an image of the correct size.
             URL url = new URL(imageURL);
             BufferedImage img = ImageIO.read(url);
             Image dimg = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
             ImageIcon imageIcon = new ImageIcon(dimg);
+            //Put the image in the label
             label.setIcon(imageIcon);
         } catch (IOException e) {
             e.printStackTrace();

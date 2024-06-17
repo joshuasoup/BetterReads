@@ -332,7 +332,7 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
      * @param imageURL The URL of the image to load.
      */
     private void loadImage(String imageURL) {
-        //Make sure the url is empty
+        //Make sure the url is not empty
         if (imageURL == null || imageURL.isEmpty()) {
             return;
         }
