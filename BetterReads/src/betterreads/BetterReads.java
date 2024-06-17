@@ -69,7 +69,7 @@ public class BetterReads {
 
     
 
-        //new LoginScreen().setVisible(true);
+        new LoginScreen().setVisible(true);
         UserReviews ur = new UserReviews();
     }
 }
