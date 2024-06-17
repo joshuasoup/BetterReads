@@ -149,14 +149,17 @@ public class SearchScreen extends javax.swing.JFrame {
         });
 
         book1Info.setColumns(20);
+        book1Info.setFont(new java.awt.Font("Kohinoor Gujarati", 0, 14)); // NOI18N
         book1Info.setLineWrap(true);
         book1Info.setRows(5);
         book1Info.setText("Insufficient Reviews");
         book1Info.setWrapStyleWord(true);
+        book1Info.setBorder(null);
         book1Info.setFocusable(false);
         jScrollPane1.setViewportView(book1Info);
 
         book2Info.setColumns(20);
+        book2Info.setFont(new java.awt.Font("Kohinoor Gujarati", 0, 14)); // NOI18N
         book2Info.setLineWrap(true);
         book2Info.setRows(5);
         book2Info.setText("Insufficient Reviews");
@@ -165,6 +168,7 @@ public class SearchScreen extends javax.swing.JFrame {
         jScrollPane2.setViewportView(book2Info);
 
         book3Info.setColumns(20);
+        book3Info.setFont(new java.awt.Font("Kohinoor Gujarati", 0, 14)); // NOI18N
         book3Info.setLineWrap(true);
         book3Info.setRows(5);
         book3Info.setText("Insufficient Reviews");
@@ -172,6 +176,7 @@ public class SearchScreen extends javax.swing.JFrame {
         book3Info.setFocusable(false);
         jScrollPane3.setViewportView(book3Info);
 
+        jLabel1.setFont(new java.awt.Font("Kohinoor Gujarati", 3, 16)); // NOI18N
         jLabel1.setText("Top Rated Books:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -211,7 +216,7 @@ public class SearchScreen extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(407, Short.MAX_VALUE)
+                .addContainerGap(59, Short.MAX_VALUE)
                 .addComponent(scanBookLabel)
                 .addGap(18, 18, 18)
                 .addComponent(bookSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,9 +224,9 @@ public class SearchScreen extends javax.swing.JFrame {
                 .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -230,7 +235,7 @@ public class SearchScreen extends javax.swing.JFrame {
                         .addComponent(book2Image, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(logOut)
                 .addGap(18, 18, 18))
         );
