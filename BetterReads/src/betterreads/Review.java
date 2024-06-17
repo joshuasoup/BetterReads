@@ -38,7 +38,7 @@ public class Review {
     
     @Override
     public String toString(){
-        return (review + " | " + book);
+        return (review + " | " + book + " | " + rating);
     }
 
     public String getRating() {

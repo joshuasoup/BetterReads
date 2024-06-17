@@ -19,9 +19,10 @@ public class Book {
     private int onlineRating;
     private String snippet;
     private String bookCover;
-    private int studentRating;
+    private float studentRating;
     private int numOfRatings;
     private String author;
+    private float totalRating;
     
     
     public Book(JSONObject o){
@@ -75,6 +76,11 @@ public class Book {
         //averageRating int, imageLinks String, searchInfo JObject - textSnippet String
     }
     
+    public Book(int rating){
+        studentRating = rating;
+    }
+    
+    
     public ArrayList<Review> getReviews() {
         return reviews;
     }
@@ -83,13 +89,16 @@ public class Book {
         return((name + " | " + description + " | " + pageCount + " | " + onlineRating + " | " + snippet + " | " + bookCover));
     }
     
-    public void setStudentRating(int totalRating){
-        studentRating = (int)(totalRating/numOfRatings);
+    public void setStudentRating(float rating){
+        totalRating += rating;
+        numOfRatings ++;
+        studentRating = (totalRating/numOfRatings);
     }
     
-    public int getStudentRating(){
+    public float getStudentRating(){
         return studentRating;
     }
+    
 
     public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
@@ -135,4 +144,8 @@ public class Book {
         return bookCover;
     }
     
+    @Override
+    public String toString(){
+        return name;
+    }
 }

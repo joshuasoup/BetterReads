@@ -25,6 +25,11 @@ public class BetterReads {
 
         new LoginScreen().setVisible(true);
         UserReviews ur = new UserReviews();
-        ur.getAllReviews();
+        
+        ArrayList<Book> b = ur.findRecommendations();
+//        ArrayList<Review> s = ur.findReviews("harry Potter and the Cursed Child");
+//        for(int i = 0; i < s.size(); i++){
+//            System.out.println(s.get(i).toString());
+//        }
     }
 }

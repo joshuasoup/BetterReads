@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Float.parseFloat;
+import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -28,7 +30,6 @@ public class UserReviews {
     
     public void addReview(String book, String review, String user, String rating){
         String newReview = "\" " + review + "\" - " + user + "*" + rating + "-" + book;
-        System.out.println(newReview);
         
         File temp;
         try {
@@ -50,6 +51,7 @@ public class UserReviews {
             pwTwo.close();
             br.close();
             pw.close();
+            s.close();
             reviews.delete();
             temp.renameTo(reviews);
         } catch (IOException ex) {
@@ -57,11 +59,68 @@ public class UserReviews {
         }
     }
     
-    public void findRecommendations(){
-        ArrayList<Review> reviews = getAllReviews();
-        for(Review r: reviews){
-            System.out.println(r.getRating());
+    public ArrayList<Book> findRecommendations(){
+        int numOfRecommendedBooks = 3;
+        ArrayList<Book> recommendedBooks = new ArrayList<>();
+        for(int i = 0; i < numOfRecommendedBooks; i++){
+            Book s = new Book(0);
+            recommendedBooks.add(s);
         }
+        ArrayList<Book> books = getBooks();
+        for(Book b: books){
+            ArrayList<Review> reviews = findReviews(b.getName());
+            for(Review r: reviews){
+                b.setStudentRating(parseFloat(r.getRating()));
+                
+            }
+//            System.out.println(b.toString());
+            float rating = b.getStudentRating();
+//            System.out.println(rating);
+            for(int i = numOfRecommendedBooks - 1; i >= 0; i--){
+                if (rating > recommendedBooks.get(i).getStudentRating() && i == 0){
+                    recommendedBooks.addFirst(b);
+                } else if(rating > recommendedBooks.get(i).getStudentRating() && rating <= recommendedBooks.get(i-1).getStudentRating()){
+                    recommendedBooks.add(i,b);
+                } else if (rating > recommendedBooks.get(i).getStudentRating()){
+                    continue;
+                } else {
+                    break;
+                }
+            }
+            try{
+                recommendedBooks.remove(numOfRecommendedBooks);
+            }catch(Exception e){
+                System.out.println(e);
+            }
+            
+        }
+        for(Book bd: recommendedBooks){
+            System.out.println(bd.toString());
+        }
+        
+        
+        return recommendedBooks;
+    }
+    
+    public ArrayList<Book> getBooks(){
+        ArrayList<Book> bookShelf = new ArrayList<>();
+        String currLine;
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(reviews));
+            
+            while((currLine = br.readLine()) != null){
+                if(currLine.charAt(0) != 34){
+                    Book b = new Book(currLine);
+                    bookShelf.add(b);
+                }
+            }
+            br.close();
+            return bookShelf;
+            
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
     }
     
     
@@ -117,11 +176,10 @@ public class UserReviews {
                 String line = s.nextLine();
                 String[] parts;
                 parts = line.split("[\\-*]");
-                
-                Review newReview = new Review(parts[0].trim().replace("\"", ""), parts[1].trim(), parts[2].trim());
+                Review newReview = new Review(parts[0].trim().replace("\"", ""), parts[1].trim(), parts[2].trim(), parts[3].trim());
                 reviews.add(newReview);
             }
-            System.out.println(reviews.toString());
+            s.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Hold up, wait a minute, something aint right");
         } catch (Exception e){
@@ -150,28 +208,7 @@ public class UserReviews {
         }
         
     }
-    public void addReviewsToFile(){
-            String print = "";
-            PrintWriter pw;
-        try {
-            pw = new PrintWriter(new FileWriter(reviewsOnly, true));
-        
-            Scanner s = new Scanner(reviews);
-            String data = s.nextLine();
-            while (s.hasNextLine()) {
-                data = s.nextLine();
-                if (data.startsWith("\"")) {
-                    print += data + "\n";
-                }
-            }
-            String cleanedPrint = print.toString().replaceAll("[\\r\\n]+$", "");
-            pw.print(cleanedPrint);
-            pw.flush();
-            pw.close();
-        } catch (IOException ex) {
-            System.out.println("Something went wrong");
-        }
-    }
+    
     public ArrayList<Review> findReviews(String name){
         
         ArrayList<Review> reviewsList = new ArrayList<Review>();
@@ -191,14 +228,14 @@ public class UserReviews {
                     if (data.startsWith("\"")) {
                         String[] parts;
                         parts = data.split("[\\-*]");
-                        Review newReview = new Review(parts[0].trim().replace("\"", ""), parts[1].trim(), parts[2].trim());
+                        Review newReview = new Review(parts[0].trim().replace("\"", ""), parts[1].trim(), parts[2].trim(), parts[3].trim());
                         reviewsList.add(newReview);
                     }
                     else {
                 break; // Exit the loop if the line does not start with a quotation mark
                 }
             }
-            
+            s.close();
             return reviewsList;
         } catch (Exception e) {
             System.out.println("Something went wrong: " + e);
@@ -217,6 +254,7 @@ public class UserReviews {
             if (data.toLowerCase().equals(name.toLowerCase())){
                 return true;
             }
+            s.close();
         } catch (Exception e) {
             System.out.println("Something went wrong: " + e);
         }
