@@ -31,16 +31,6 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
      *
      * @param userId
      */
-//    public BookDescriptionScreen(long userId, long bookId) {
-//        this.userId = userId;
-//        ArrayList<Book> books = api.findBook(String.valueOf(bookId));
-//        book = books.get(0);
-//        initComponents();
-//        setExtendedState(this.MAXIMIZED_BOTH);
-//        loadImage(book.getBookCover());
-//        
-//
-//    }
     public BookDescriptionScreen(long userId, Book book) {
         curBookReview = Urev.findReviews(book.getName());
         if (curBookReview == null){
@@ -54,16 +44,6 @@ public class BookDescriptionScreen extends javax.swing.JFrame {
         loadImage(book.getBookCover());
 
     }
-
-//    public BookDescriptionScreen(long userId, String bookTitle) {
-//        this.userId = userId;
-//        ArrayList<Book> books = api.findBook(bookTitle);
-//        book = books.get(0);
-//        initComponents();
-//        setExtendedState(this.MAXIMIZED_BOTH);
-//        loadImage(book.getBookCover());
-//
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

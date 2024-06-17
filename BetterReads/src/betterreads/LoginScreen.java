@@ -114,7 +114,16 @@ public class LoginScreen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Handles the action performed when the login button is clicked.
+     * Checks the user ID entered in the text field. If the user ID matches the teacher login ID, it opens the Teacher Control Screen.
+     * Otherwise, it opens the Search Screen with the entered user ID.
+     * If the input is not a valid number, it prompts the user to enter a valid ID.
+     * - Jaden
+     * 
+     * @param evt the action event triggered when the login button is clicked
+     */
     private void loginConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginConfirmActionPerformed
         try {
             Long userId = Long.parseLong(idInputField.getText());
@@ -138,6 +147,12 @@ public class LoginScreen extends javax.swing.JFrame {
     private void idInputFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idInputFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idInputFieldActionPerformed
+    /**
+     * Loads the images used in the login screen.
+     * Attempts to read the Better Reads and NHS logos from the file system.
+     * If the images are not found, an IOException is caught and the stack trace is printed.
+     * - Jaden
+     */
     private void loadImage() {
         try {
             betterReadsLogo = ImageIO.read(new File("Better Reads Logo (1).png"));
@@ -146,7 +161,15 @@ public class LoginScreen extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-
+    /**
+     * Paints the login screen, including the Better Reads and NHS logos.
+     * This method overrides the paint method of the JFrame class.
+     * The logos are drawn at the top-left and top-right corners, respectively.
+     * The size of the logos is dynamically determined based on the screen size.
+     * - Jaden
+     * 
+     * @param g the Graphics object used for drawing
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);

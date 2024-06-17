@@ -84,6 +84,11 @@
               </Group>
               <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
           </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" pref="148" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -97,7 +102,9 @@
               <Component id="searchInput" min="-2" pref="65" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="searchConfirm" min="-2" pref="55" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane3" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
@@ -209,6 +216,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -224,6 +232,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -239,9 +248,15 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Top Rated Books:"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

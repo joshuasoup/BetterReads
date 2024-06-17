@@ -20,11 +20,13 @@ public class Book {
     private int onlineRating;
     private String snippet;
     private String bookCover;
-    private int studentRating;
+    private float studentRating;
     private int numOfRatings;
     private String author;
-
-    public Book(JSONObject o) {
+    private float totalRating;
+    
+    
+    public Book(JSONObject o){
         UserReviews ur = new UserReviews();
         JSONObject volumeInfo = o.getJSONObject("volumeInfo");
         name = volumeInfo.getString("title");
@@ -73,7 +75,12 @@ public class Book {
         //volumeInfo JObject, description String, pageCount Int, categories JSONArray
         //averageRating int, imageLinks String, searchInfo JObject - textSnippet String
     }
-
+    
+    public Book(int rating){
+        studentRating = rating;
+    }
+    
+    
     public ArrayList<Review> getReviews() {
         return reviews;
     }
@@ -81,14 +88,17 @@ public class Book {
     public String bookInfo() {
         return ((name + " | " + description + " | " + pageCount + " | " + onlineRating + " | " + snippet + " | " + bookCover));
     }
-
-    public void setStudentRating(int totalRating) {
-        studentRating = (int) (totalRating / numOfRatings);
+    
+    public void setStudentRating(float rating){
+        totalRating += rating;
+        numOfRatings ++;
+        studentRating = (totalRating/numOfRatings);
     }
-
-    public int getStudentRating() {
+    
+    public float getStudentRating(){
         return studentRating;
     }
+    
 
     public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
@@ -143,5 +153,9 @@ public class Book {
     public String getBookCover() {
         return bookCover;
     }
-
+    
+    @Override
+    public String toString(){
+        return name;
+    }
 }

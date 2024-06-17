@@ -32,16 +32,18 @@ public class SearchScreen extends javax.swing.JFrame {
     private ArrayList<Book> topBooks;
     private javax.swing.JLabel[] labels;
     private javax.swing.JTextArea[] textAreas;
+    private UserReviews Urev = new UserReviews();
 
     /**
      * Creates new form SearchScreen
+     * - Jaden
      *
      * @param userId allows the inputted userId on the login screen to be sent
      * to this screen
      */
     public SearchScreen(long userId) {
         this.userId = userId;
-        topBooks = new ArrayList<>();
+        topBooks = Urev.findRecommendations();
         initComponents();
         labels = new javax.swing.JLabel[]{book1Image, book2Image, book3Image};
         textAreas = new javax.swing.JTextArea[]{book1Info, book2Info, book3Info};
@@ -79,6 +81,7 @@ public class SearchScreen extends javax.swing.JFrame {
         book2Info = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         book3Info = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
 
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -146,15 +149,20 @@ public class SearchScreen extends javax.swing.JFrame {
 
         book1Info.setColumns(20);
         book1Info.setRows(5);
+        book1Info.setFocusable(false);
         jScrollPane1.setViewportView(book1Info);
 
         book2Info.setColumns(20);
         book2Info.setRows(5);
+        book2Info.setFocusable(false);
         jScrollPane2.setViewportView(book2Info);
 
         book3Info.setColumns(20);
         book3Info.setRows(5);
+        book3Info.setFocusable(false);
         jScrollPane3.setViewportView(book3Info);
+
+        jLabel1.setText("Top Rated Books:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,6 +193,10 @@ public class SearchScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
                 .addGap(68, 68, 68))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,7 +209,9 @@ public class SearchScreen extends javax.swing.JFrame {
                 .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(5, 5, 5)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
                     .addGroup(layout.createSequentialGroup()
@@ -217,6 +231,12 @@ public class SearchScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Draws the BetterReads and NHS logos.
+     * - Jaden
+     *
+     * @param g the Graphics object
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -238,7 +258,15 @@ public class SearchScreen extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
+    /**
+     * Handles the search button action event. Searches for books using the
+     * input from the search field and displays the results. If there is more
+     * than one book, open a combo box to allow the user to choose the correct
+     * book.
+     * - Jaden
+     *
+     * @param evt the ActionEvent object
+     */
     private void searchConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchConfirmActionPerformed
         String bookIdentifier = searchInput.getText().replaceAll(" ", "%20");
 
@@ -268,6 +296,13 @@ public class SearchScreen extends javax.swing.JFrame {
         scanBookLabel.setText("Choose book from menu");
     }//GEN-LAST:event_searchConfirmActionPerformed
 
+    /**
+     * Logs out user when log out button is pressed. Essentially restarts
+     * program
+     * - Jaden
+     *
+     * @param evt the ActionEvent object
+     */
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -281,7 +316,13 @@ public class SearchScreen extends javax.swing.JFrame {
     private void searchInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchInputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchInputActionPerformed
-
+    /**
+     * Handles the book selector combo box action event. Allows users to pick
+     * the book then want, then openBookDescriptionScreen with that book.
+     * - Jaden
+     *
+     * @param evt the ActionEvent object
+     */
     private void bookSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookSelectorActionPerformed
         if (!actualAcctionPerformed) { // Only perform action if not populating
             int selectedIndex = bookSelector.getSelectedIndex();
@@ -294,7 +335,12 @@ public class SearchScreen extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_bookSelectorActionPerformed
-
+    /**
+     * Loads images and information for the top recommended books. Retrieves
+     * book covers, book names, authors, and ratings and displays them. Displays
+     * up to three books on the SearchScreen.
+     * - Jaden
+     */
     private void loadBookImagesAndInfo() {
         int length = Math.min(3, topBooks.size());
         for (int i = 0; i < length; i++) {
@@ -304,10 +350,15 @@ public class SearchScreen extends javax.swing.JFrame {
             } else {
                 System.out.println("Book at index " + i + " is null");
             }
-            
+
         }
     }
 
+    /**
+     * Loads the Better Reads and NHS logos from local files. Displays these
+     * logos on the SearchScreen.
+     * - Jaden
+     */
     private void loadImage() {
         try {
             betterReadsLogo = ImageIO.read(new File("Better Reads Logo (1).png"));
@@ -317,6 +368,14 @@ public class SearchScreen extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Loads an image from a specified URL and sets it to a JLabel. Resizes the
+     * image to fit the label dimensions using Image.SCALE_SMOOTH.
+     * - Jaden
+     *
+     * @param imageURL the URL of the image to load
+     * @param label the JLabel where the loaded image will be displayed
+     */
     private void loadImage(String imageURL, javax.swing.JLabel label) {
         if (imageURL == null || imageURL.isEmpty()) {
             return;
@@ -377,6 +436,7 @@ public class SearchScreen extends javax.swing.JFrame {
     private javax.swing.JTextArea book3Info;
     private javax.swing.JComboBox<String> bookSelector;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
