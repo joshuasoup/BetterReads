@@ -25,6 +25,7 @@ public class LoginScreen extends javax.swing.JFrame {
      * Creates new form LoginScreen
      */
     public LoginScreen() {
+        //fill relevant variables and call all relevant methods
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
         loadImage();
@@ -114,20 +115,33 @@ public class LoginScreen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Handles the action performed when the login button is clicked.
+     * Checks the user ID entered in the text field. If the user ID matches the teacher login ID, it opens the Teacher Control Screen.
+     * Otherwise, it opens the Search Screen with the entered user ID.
+     * If the input is not a valid number, it prompts the user to enter a valid ID.
+     * - Jaden
+     * 
+     * @param evt the action event triggered when the login button is clicked
+     */
     private void loginConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginConfirmActionPerformed
         try {
+            // parse user id input to a long (number sill be too large
             Long userId = Long.parseLong(idInputField.getText());
-            if (userId == 1234) {
+            //if the input is the teacher login, open the teacher control screen
+            if (userId == TEACHERLOGIN) {
                 TeacherControlScreen t = new TeacherControlScreen();
                 t.setVisible(true);
                 this.dispose();
             } else {
+                //if ont open the search screen with the entered user
                 SearchScreen s = new SearchScreen(userId);
                 s.setVisible(true);
                 this.dispose();
             }
         } catch (NumberFormatException e) {
+            //if rhe entered text is not a number, instruct user to try again
             loginMessage.setText("Please enter valid ID");
             idInputField.setText("");
             idInputField.requestFocusInWindow();
@@ -138,6 +152,12 @@ public class LoginScreen extends javax.swing.JFrame {
     private void idInputFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idInputFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idInputFieldActionPerformed
+    /**
+     * Loads the images used in the login screen.
+     * Attempts to read the Better Reads and NHS logos from the file system.
+     * If the images are not found, an IOException is caught and the stack trace is printed.
+     * - Jaden
+     */
     private void loadImage() {
         try {
             betterReadsLogo = ImageIO.read(new File("Better Reads Logo (1).png"));
@@ -146,10 +166,19 @@ public class LoginScreen extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-
+    /**
+     * Paints the login screen, including the Better Reads and NHS logos.
+     * This method overrides the paint method of the JFrame class.
+     * The logos are drawn at the top-left and top-right corners, respectively.
+     * The size of the logos is dynamically determined based on the screen size.
+     * - Jaden
+     * 
+     * @param g the Graphics object used for drawing
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        //calculate image size
         int size = Math.max(this.getWidth(), this.getHeight()) / 4;
         if (betterReadsLogo != null) {
             // Draw the Better Reads logo at the top-left corner

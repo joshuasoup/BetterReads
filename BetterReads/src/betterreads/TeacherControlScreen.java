@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class TeacherControlScreen extends javax.swing.JFrame {
 
     ArrayList<Review> reviews;
-//    ArrayList<Review> reviews = new ArrayList<>();
     int numTotReviews;
     UserReviews main = new UserReviews();
 
@@ -21,9 +20,7 @@ public class TeacherControlScreen extends javax.swing.JFrame {
      * Creates new form TeacherControlScreen
      */
     public TeacherControlScreen() {
-//        reviews.add(new Review("user1", "I liked this book", "5"));
-//        reviews.add(new Review("user2", "It was an okay read", "3"));
-//        reviews.add(new Review("user3", "Did not enjoy it", "1"));
+        //fill relevant variables and call all relevant methods
         reviews = main.getAllReviews();
         numTotReviews = reviews.size();
         System.out.println(reviews.size());
@@ -88,8 +85,8 @@ public class TeacherControlScreen extends javax.swing.JFrame {
             .addComponent(jScrollPane2)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Back)
+                .addGap(86, 86, 86)
                 .addComponent(reviewSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -126,16 +123,25 @@ public class TeacherControlScreen extends javax.swing.JFrame {
         });
         this.dispose();
     }//GEN-LAST:event_BackActionPerformed
-
+    /**
+     * Handles the action when the delete confirmation button is clicked.
+     * Deletes the selected review and updates the user interface accordingly.
+     * - Jaden
+     *
+     * @param evt The ActionEvent triggered when the button is clicked.
+     */
     private void deleteConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteConfirmActionPerformed
         try {
+            //Find which review was selected to be deleted
             int removedReview = Integer.parseInt(reviewSelector.getSelectedItem().toString());
-            System.out.println(removedReview);
+            // delete that review
             main.deleteReview(removedReview);
+            //open a new screen that wont contain that review
             TeacherControlScreen t = new TeacherControlScreen();
             t.setVisible(true);
             this.dispose();
-        } catch (NumberFormatException e) {
+        } //Make sure the user selects a review and not the item that says "Make selection"
+        catch (NumberFormatException e) {
             teacherInstructionLabel.setText("Please select valid review");
         }
     }//GEN-LAST:event_deleteConfirmActionPerformed
@@ -144,25 +150,55 @@ public class TeacherControlScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_reviewSelectorActionPerformed
 
+    /**
+     * Generates a ComboBoxModel with the contents based on the total number of
+     * reviews.
+     * - Jaden
+     *
+     * @return A ComboBoxModel containing review length options from 1 to
+     * numTotReviews, with the first item as a default "Make Selection:" prompt.
+     */
     private javax.swing.ComboBoxModel menuLength() {
+        // Create an array to hold the review length options, initialized with size numTotReviews + 1
         String[] numbers = new String[numTotReviews + 1];
+        // Set the first element of the array as a default prompt
         numbers[0] = "Make Selection:";
+        // Populate the array with review length options from 1 to numTotReviews
         for (int i = 1; i <= numTotReviews; i++) {
             numbers[i] = String.valueOf(i);
         }
+        // Create a new DefaultComboBoxModel using the numbers array and return it as a ComboBoxModel
         javax.swing.ComboBoxModel list = new javax.swing.DefaultComboBoxModel<>(numbers);
         return list;
     }
-    
-    private String allReviewsText(){
+
+    /**
+     * Generates a formatted text containing all reviews stored in the 'reviews'
+     * list. Each review is numbered sequentially with user information and
+     * ratings.
+     * - Jaden
+     * 
+     * @return A String containing formatted text listing all reviews, including
+     * user names and ratings.
+     */
+    private String allReviewsText() {
+        // StringBuilder to build the formatted text
         StringBuilder temp = new StringBuilder();
+        // Counter for numbering reviews
         int count = 1;
-        for (Review x:reviews){
+        // Iterate through each Review object in the 'reviews' list
+        for (Review x : reviews) {
+            // Extract user name and review rating from the Review object
             String user = x.getUser();
             String review = x.getReview();
-            temp.append(count + ". User: " + user + "  Rating: "+ review+"\n\n");
+
+            // Append formatted review information to the StringBuilder
+            temp.append(count + ". User: " + user + "  Rating: " + review + "\n\n");
+
+            // Increment review count
             count++;
         }
+        // Convert StringBuilder to String and return
         return temp.toString();
     }
 

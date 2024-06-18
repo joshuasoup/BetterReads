@@ -12,6 +12,7 @@ import org.json.JSONObject;
  * @author bmara
  */
 public class Book {
+
     private ArrayList<Review> reviews;
     private String name;
     private String description;
@@ -19,82 +20,85 @@ public class Book {
     private int onlineRating;
     private String snippet;
     private String bookCover;
-    private int studentRating;
+    private float studentRating;
     private int numOfRatings;
     private String author;
+    private float totalRating;
     
     
     public Book(JSONObject o){
         UserReviews ur = new UserReviews();
         JSONObject volumeInfo = o.getJSONObject("volumeInfo");
         name = volumeInfo.getString("title");
-        try{
+        try {
             description = volumeInfo.getString("description");
-        } catch (Exception e ) {
+        } catch (Exception e) {
             description = "";
-            System.out.println(e);
         }
-        
-        try{
+
+        try {
             pageCount = volumeInfo.getInt("pageCount");
-        } catch (Exception e){
+        } catch (Exception e) {
             pageCount = 0;
         }
-        
-        try{
+
+        try {
             onlineRating = volumeInfo.getInt("averageRating");
-        }catch (Exception e){
-            System.out.println(e);
+        } catch (Exception e) {
             onlineRating = 0;
         }
-        
-        try{
+
+        try {
             JSONObject s = o.getJSONObject("searchInfo");
             snippet = s.getString("textSnippet");
-        }catch(Exception e){
+        } catch (Exception e) {
             snippet = "";
-            System.out.println(e);
         }
-        
-        try{
+
+        try {
             bookCover = volumeInfo.getJSONObject("imageLinks").getString("thumbnail");
-        } catch (Exception e){
-            System.out.println(e);
+        } catch (Exception e) {
             bookCover = "";
         }
-        
-        try{
+
+        try {
             author = volumeInfo.getJSONArray("authors").getString(0);
-        }catch(Exception e){
-            System.out.println(e);
+        } catch (Exception e) {
             author = "";
         }
-        
-        
+
         //volumeInfo JObject, description String, pageCount Int, categories JSONArray
         //averageRating int, imageLinks String, searchInfo JObject - textSnippet String
     }
     
+    public Book(int rating){
+        studentRating = rating;
+    }
+    
+    
     public ArrayList<Review> getReviews() {
         return reviews;
     }
-    
-    public String bookInfo(){
-        return((name + " | " + description + " | " + pageCount + " | " + onlineRating + " | " + snippet + " | " + bookCover));
+
+    public String bookInfo() {
+        return ((name + " | " + description + " | " + pageCount + " | " + onlineRating + " | " + snippet + " | " + bookCover));
     }
     
-    public void setStudentRating(int totalRating){
-        studentRating = (int)(totalRating/numOfRatings);
+    public void setStudentRating(float rating){
+        totalRating += rating;
+        numOfRatings ++;
+        studentRating = (totalRating/numOfRatings);
     }
     
-    public int getStudentRating(){
+    public float getStudentRating(){
         return studentRating;
     }
+    
 
     public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -102,19 +106,21 @@ public class Book {
     public void setName(String name) {
         this.name = name;
     }
-    
-    public Book(ArrayList<Review> reviews, String name){
+
+    public Book(ArrayList<Review> reviews, String name) {
         setReviews(reviews);
         setName(name);
-        
+
     }
-    public Book(String name){
+
+    public Book(String name) {
         setName(name);
     }
-    public String print(){
+
+    public String print() {
         return getName();
     }
-    
+
     public String getDescription() {
         return description;
     }
@@ -127,6 +133,14 @@ public class Book {
         return onlineRating;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public String getSnippet() {
         return snippet;
     }
@@ -135,4 +149,24 @@ public class Book {
         return bookCover;
     }
     
+    @Override
+    public String toString(){
+        return name;
+    }
+
+    public int getNumOfRatings() {
+        return numOfRatings;
+    }
+
+    public void setNumOfRatings(int numOfRatings) {
+        this.numOfRatings = numOfRatings;
+    }
+
+    public float getTotalRating() {
+        return totalRating;
+    }
+
+    public void setTotalRating(float totalRating) {
+        this.totalRating = totalRating;
+    }
 }
