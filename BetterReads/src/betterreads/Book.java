@@ -25,29 +25,45 @@ public class Book {
     private String author;
     private float totalRating;
     
-    
-    public Book(JSONObject o){
+    /**
+     * This constructor takes a JSONObject and extracts various book details from it.
+     * If a detail is not found, a default value is assigned.
+     *
+     * @author Josh Souphanthong
+     * @param o The JSONObject containing book details.
+     */
+    public Book(JSONObject o) {
+        // Create a new UserReviews object
         UserReviews ur = new UserReviews();
+
+        // Get the "volumeInfo" object from the JSONObject
         JSONObject volumeInfo = o.getJSONObject("volumeInfo");
+
+        // Get the book's title
         name = volumeInfo.getString("title");
+
+        // Try to get the book's description, if it doesn't exist, set it to an empty string
         try {
             description = volumeInfo.getString("description");
         } catch (Exception e) {
             description = "";
         }
 
+        // Try to get the book's page count, if it doesn't exist, set it to 0
         try {
             pageCount = volumeInfo.getInt("pageCount");
         } catch (Exception e) {
             pageCount = 0;
         }
 
+        // Try to get the book's online rating, if it doesn't exist, set it to 0
         try {
             onlineRating = volumeInfo.getInt("averageRating");
         } catch (Exception e) {
             onlineRating = 0;
         }
 
+        // Try to get the book's snippet, if it doesn't exist, set it to an empty string
         try {
             JSONObject s = o.getJSONObject("searchInfo");
             snippet = s.getString("textSnippet");
@@ -55,21 +71,21 @@ public class Book {
             snippet = "";
         }
 
+        // Try to get the book's cover image link, if it doesn't exist, set it to an empty string
         try {
             bookCover = volumeInfo.getJSONObject("imageLinks").getString("thumbnail");
         } catch (Exception e) {
             bookCover = "";
         }
 
+        // Try to get the book's author, if it doesn't exist, set it to an empty string
         try {
             author = volumeInfo.getJSONArray("authors").getString(0);
         } catch (Exception e) {
             author = "";
         }
-
-        //volumeInfo JObject, description String, pageCount Int, categories JSONArray
-        //averageRating int, imageLinks String, searchInfo JObject - textSnippet String
     }
+
     
     public Book(int rating){
         studentRating = rating;
@@ -84,11 +100,25 @@ public class Book {
         return ((name + " | " + description + " | " + pageCount + " | " + onlineRating + " | " + snippet + " | " + bookCover));
     }
     
-    public void setStudentRating(float rating){
-        totalRating += rating;
-        numOfRatings ++;
-        studentRating = (totalRating/numOfRatings);
-    }
+    /**
+    * This method is used to set the student's rating.
+    * It does this by adding the new rating to the total rating, incrementing the number of ratings,
+    * and then calculating the average rating.
+    *
+    * @author Josh Souphanthong
+    * @param rating The new rating to be added.
+    */
+   public void setStudentRating(float rating){
+       // Add the new rating to the total rating
+       totalRating += rating;
+
+       // Increment the number of ratings
+       numOfRatings ++;
+
+       // Calculate the average rating
+       studentRating = (totalRating/numOfRatings);
+   }
+
     
     public float getStudentRating(){
         return studentRating;

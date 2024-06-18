@@ -67,23 +67,48 @@ public class UserReviews {
         }
     }
     
-    public ArrayList<Book> findRecommendations(){
+    /**
+     * This method finds book recommendations based on student ratings.
+     * It first creates a list of books, then iterates through each book to find its reviews.
+     * If a book has reviews, it sets the student rating for that book.
+     * It then compares the rating of the book with the ratings of the books in the recommended list.
+     * If the rating is higher, it adds the book to the appropriate position in the recommended list.
+     * The recommended list is always kept at a fixed size of numOfRecommendedBooks.
+     *
+     * @author Josh Souphanthong
+     * @return ArrayList<Book> The list of recommended books.
+     */
+    public ArrayList<Book> findRecommendations() {
         int numOfRecommendedBooks = 3;
         ArrayList<Book> recommendedBooks = new ArrayList<>();
+
+        // Initialize the recommended books list with empty books
         for(int i = 0; i < numOfRecommendedBooks; i++){
             Book s = new Book(0);
             recommendedBooks.add(s);
         }
+
         ArrayList<Book> books = getBooks();
+
+        // Iterate through each book
         for(Book b: books){
+            // Find the reviews for the book
             ArrayList<Review> reviews = findReviews(b.getName());
+
+            // If there are no reviews, skip this book
             if(reviews == null){
                 continue;
             }
+
+            // Set the student rating for the book based on the reviews
             for(Review r: reviews){
                 b.setStudentRating(parseFloat(r.getRating()));
             }
+
+            // Get the rating of the book
             float rating = b.getStudentRating();
+
+            // Compare the rating with the ratings of the books in the recommended list
             for(int i = numOfRecommendedBooks - 1; i >= 0; i--){
                 if (rating > recommendedBooks.get(i).getStudentRating() && i == 0){
                     recommendedBooks.addFirst(b);
@@ -92,37 +117,63 @@ public class UserReviews {
                 } else if (rating > recommendedBooks.get(i).getStudentRating()){
                     continue;
                 } else {
+                    // If the rating is lower, break the loop
                     break;
                 }
             }
+
+            // Try to remove the last book in the list to keep the size constant
             try{
                 recommendedBooks.remove(numOfRecommendedBooks);
             }catch(Exception e){
                 System.out.println(e);
             }
-            
         }
+
+        // Return the list of recommended books
         return recommendedBooks;
     }
     
-    public ArrayList<Book> getBooks(){
+    /**
+     * This method retrieves a list of books from the Google Books API based on the titles read from a file.
+     * It creates a new GoogleBooksAPI object and uses it to find books based on the titles.
+     *
+     * @author Josh Souphanthong
+     * @return An ArrayList of Book objects retrieved from the Google Books API.
+     */
+    public ArrayList<Book> getBooks() {
+        // Create an ArrayList to store the books
         ArrayList<Book> bookShelf = new ArrayList<>();
+
+        // Create a new GoogleBooksAPI object
         GoogleBooksAPI api = new GoogleBooksAPI();
+
         String currLine;
-        try{
+
+        try {
+            // Create a BufferedReader to read from the file
             BufferedReader br = new BufferedReader(new FileReader(reviews));
-            
-            while((currLine = br.readLine()) != null){
-                if(currLine.charAt(0) != 34){
+
+            // Read each line from the file
+            while ((currLine = br.readLine()) != null) {
+                // If the first character of the line is not a quotation mark, find the book with the title from the line
+                if (currLine.charAt(0) != 34) {
                     bookShelf.add(api.findBook(currLine).get(0));
                 }
             }
+
+            // Close the BufferedReader
             br.close();
+
+            // Return the list of books
             return bookShelf;
-            
-        }catch (Exception e){
+
+        } catch (Exception e) {
+            // Print any exceptions that occur
             System.out.println(e);
         }
+
+        // If an exception occurs, return null
         return null;
     }
     
